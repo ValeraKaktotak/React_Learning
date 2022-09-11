@@ -1,4 +1,6 @@
 import style from './Profile.module.css';
+import Myposts from "./Myposts/Myposts";
+
 const Profile = () => {
     return (
         <article className={style.profile}>
@@ -18,10 +20,7 @@ const Profile = () => {
                     </p>
                 </div>
             </div>
-            <div className={style.my_posts}>
-                <h3>My posts</h3>
-
-            </div>
+            <Myposts/>
         </article>);
 }
 

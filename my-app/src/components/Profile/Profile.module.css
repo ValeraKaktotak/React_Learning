@@ -5,7 +5,6 @@
 
 .profile img {
     width: 100%;
-    height: 200px;
 }
 
 .profile .user_block {
@@ -15,10 +14,6 @@
     grid-template-areas:
     "user-image user-description";
     padding: 20px 0;
-}
-
-.profile .my_posts {
-
 }
 
 .profile .user_block img {
