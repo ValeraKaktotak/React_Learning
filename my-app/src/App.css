@@ -5,23 +5,32 @@
     grid-template-areas:
     "header header"
     "nav article";
+    grid-gap: 1vw;
     text-align: left;
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    background: aquamarine;
 }
 
 .App-wrapper header{
+    background: aliceblue;
     grid-area: header;
 }
 .App-wrapper header img{
     width: 60px;
 }
 .App-wrapper nav{
+    background: aliceblue;
     grid-area: nav;
 }
+.App-wrapper nav ul li{
+    margin-bottom: 20px;
+}
+.App-wrapper nav a{
+    text-decoration: none;
+}
 .App-wrapper article{
+    background: aliceblue;
     grid-area: article;
 }
 article img{
@@ -40,6 +49,7 @@ article .user-block img{
     width: 100%;
     grid-area: user-image;
     height: auto;
+    border-radius: 50%;
 }
 article .user-block .user-description{
     grid-area: user-description;
