@@ -1,0 +1,7 @@
+.header {
+    background: aliceblue;
+    grid-area: header;
+}
+.header img {
+    width: 60px;
+}

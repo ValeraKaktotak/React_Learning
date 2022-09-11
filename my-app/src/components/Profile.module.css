@@ -1,0 +1,34 @@
+.profile {
+    background: aliceblue;
+    grid-area: article;
+}
+
+.profile img {
+    width: 100%;
+    height: 200px;
+}
+
+.profile .user_block {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 4fr;
+    grid-template-areas:
+    "user-image user-description";
+    padding: 20px 0;
+}
+
+.profile .my_posts {
+
+}
+
+.profile .user_block img {
+    width: 100%;
+    grid-area: user-image;
+    height: auto;
+    border-radius: 50%;
+}
+
+.profile .user_description {
+    grid-area: user-description;
+    padding: 0 20px;
+}

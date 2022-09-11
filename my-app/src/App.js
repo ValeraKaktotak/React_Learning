@@ -5,7 +5,7 @@ import Profile from "./components/Profile";
 
 const App = () => {
     return (
-        <div className="App-wrapper">
+        <div className="App_wrapper">
             <Header/>
             <Sidebar/>
             <Profile/>

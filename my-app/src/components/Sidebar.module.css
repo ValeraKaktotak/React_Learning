@@ -1,0 +1,13 @@
+
+.sidebar {
+    background: aliceblue;
+    grid-area: nav;
+}
+
+.sidebar ul li {
+    margin-bottom: 20px;
+}
+
+.sidebar a {
+    text-decoration: none;
+}
