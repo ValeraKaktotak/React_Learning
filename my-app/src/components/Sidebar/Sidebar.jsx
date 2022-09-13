@@ -3,11 +3,11 @@ const Sidebar = () => {
     return (
         <nav className={style.sidebar}>
             <ul>
-                <li><a href="my-app/src/components/Sidebar/Sidebar#1">Profile</a></li>
-                <li><a href="my-app/src/components/Sidebar/Sidebar#1">Messages</a></li>
-                <li><a href="my-app/src/components/Sidebar/Sidebar#1">News</a></li>
-                <li><a href="my-app/src/components/Sidebar/Sidebar#1">Music</a></li>
-                <li><a href="my-app/src/components/Sidebar/Sidebar#1">Settings</a></li>
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/dialogs">Messages</a></li>
+                <li><a href="/news">News</a></li>
+                <li><a href="/music">Music</a></li>
+                <li><a href="/settings">Settings</a></li>
             </ul>
         </nav>
     );
