@@ -8,6 +8,10 @@
     margin-bottom: 20px;
 }
 
-.sidebar a {
+a {
     text-decoration: none;
+    color: #b00505;
+}
+.active{
+    color: green;
 }
