@@ -1,7 +1,7 @@
 
 .sidebar {
     background: aliceblue;
-    grid-area: nav;
+    grid-area: sidebar;
 }
 
 .sidebar ul li {
