@@ -9,13 +9,10 @@ const UserDialogs = () => {
         {id: '4', name: 'Marina'},
         {id: '5', name: 'Lena'},
     ]
+    const dialogs = dialogsData.map(d => <UserDialog name={d.name} id={d.id}/>);
     return(
         <div className={style.user_dialogs}>
-            <UserDialog name={dialogsData[0].name} id={dialogsData[0].id}/>
-            <UserDialog name={dialogsData[1].name} id={dialogsData[1].id}/>
-            <UserDialog name={dialogsData[2].name} id={dialogsData[2].id}/>
-            <UserDialog name={dialogsData[3].name} id={dialogsData[3].id}/>
-            <UserDialog name={dialogsData[4].name} id={dialogsData[4].id}/>
+            { dialogs }
         </div>
     );
 }
