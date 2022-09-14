@@ -1,24 +1,14 @@
 import style from './UserDialogs.module.css'
-import {NavLink} from "react-router-dom";
+import UserDialog from "./UserDialog/UserDialog";
 
 const UserDialogs = () => {
     return(
         <div className={style.user_dialogs}>
-            <div className={style.user_dialog}>
-                <NavLink to="/dialogs/1">Valera</NavLink>
-            </div>
-            <div className={style.user_dialog}>
-                <NavLink to="/dialogs/2">Dima</NavLink>
-            </div>
-            <div className={style.user_dialog}>
-                <NavLink to="/dialogs/3">Sveta</NavLink>
-            </div>
-            <div className={style.user_dialog}>
-                <NavLink to="/dialogs/4">Marina</NavLink>
-            </div>
-            <div className={style.user_dialog}>
-                <NavLink to="/dialogs/5">Lena</NavLink>
-            </div>
+            <UserDialog name="Valera" id="1"/>
+            <UserDialog name="Dima" id="2"/>
+            <UserDialog name="Sveta" id="3"/>
+            <UserDialog name="Marina" id="4"/>
+            <UserDialog name="Lena" id="5"/>
         </div>
     );
 }

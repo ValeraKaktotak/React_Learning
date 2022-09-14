@@ -1,23 +1,14 @@
 import style from './UserMessages.module.css';
+import UserMessage from "./UserMessage/UserMessage";
 
 const UserMessages = () => {
     return(
         <div className={style.user_messages}>
-            <div className={style.user_message}>
-                hi:)
-            </div>
-            <div className={style.user_message}>
-                hi hi hi:)
-            </div>
-            <div className={style.user_message}>
-                Hello!)))
-            </div>
-            <div className={style.user_message}>
-                How are you?)
-            </div>
-            <div className={style.user_message}>
-                You are ok?)
-            </div>
+            <UserMessage message="Hi:)"/>
+            <UserMessage message="hi hi hi:)"/>
+            <UserMessage message="Hello!)))"/>
+            <UserMessage message="How are you?)"/>
+            <UserMessage message="You are ok?)"/>
         </div>
     );
 }
