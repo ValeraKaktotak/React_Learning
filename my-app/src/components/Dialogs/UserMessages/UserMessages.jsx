@@ -9,13 +9,10 @@ const UserMessages = () => {
         {id: '4', message: 'How are you?)'},
         {id: '5', message: 'Are you ok?'},
     ]
+    const messages = messagesData.map(m => <UserMessage message={m.message}/>);
     return(
         <div className={style.user_messages}>
-            <UserMessage message={messagesData[0].message}/>
-            <UserMessage message={messagesData[1].message}/>
-            <UserMessage message={messagesData[2].message}/>
-            <UserMessage message={messagesData[3].message}/>
-            <UserMessage message={messagesData[4].message}/>
+            { messages }
         </div>
     );
 }
