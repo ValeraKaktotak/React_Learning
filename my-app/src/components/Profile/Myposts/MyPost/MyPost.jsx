@@ -1,6 +1,6 @@
-import style from './Mypost.module.css';
+import style from './MyPost.module.css';
 
-const Mypost = (props) => {
+const MyPost = (props) => {
     return(
         <div className={style.my_post}>
             <img src="https://i.yapx.ru/PjNdJ.gif" alt="#"/>
@@ -10,4 +10,4 @@ const Mypost = (props) => {
     );
 }
 
-export default Mypost
+export default MyPost
