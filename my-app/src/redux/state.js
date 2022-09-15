@@ -21,6 +21,13 @@ let State = {
             {id: '2', message: 'Hi, it\'s my second post', likes: 11},
             {id: '3', message: 'Hi, it\'s my third post', likes: 15},
         ]
+    },
+    sidebar: {
+        friends: [
+            {id: '1', avatar: 'https://marvel.com.ru/imagecache/original/uploads/images/ued3m0s0HRwkYy6KAM1F.png'},
+            {id: '2', avatar: 'https://i.pinimg.com/736x/f5/78/b7/f578b78a53a98d9260961235f83408c1.jpg'},
+            {id: '3', avatar: 'https://images-on-off.com/images/49/fireplamyageroimarvelmarvelidccomics-673fe4c4.jpg'}
+        ]
     }
 }
 

@@ -13,7 +13,7 @@ const App = (props) => {
         <BrowserRouter>
             <div className="App_wrapper">
                 <Header/>
-                <Sidebar/>
+                <Sidebar friendsData={props.state.sidebar}/>
                 <div className="App_wrapper_content">
                     <Routes>
                         <Route path="/" element={<Profile postsData={props.state.profilePade}/>} />
