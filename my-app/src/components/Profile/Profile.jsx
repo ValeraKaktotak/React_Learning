@@ -2,11 +2,11 @@ import style from './Profile.module.css';
 import MyPosts from "./Myposts/MyPosts";
 import MyProfile from "./MyProfile/MyProfile";
 
-const Profile = () => {
+const Profile = (props) => {
     return (
         <article className={style.profile}>
             <MyProfile/>
-            <MyPosts/>
+            <MyPosts postsData={props.postsData}/>
         </article>);
 }
 
