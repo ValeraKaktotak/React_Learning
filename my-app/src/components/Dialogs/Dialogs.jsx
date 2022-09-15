@@ -5,8 +5,8 @@ import UserMessages from "./UserMessages/UserMessages";
 const Dialogs = (props) => {
     return(
         <div className={style.dialogs}>
-            <UserDialogs dialogsData={props.dialogsData} />
-            <UserMessages messagesData={props.messagesData} />
+            <UserDialogs dialogsData={props.dialogsData.dialogData} />
+            <UserMessages messagesData={props.dialogsData.messageData} />
         </div>
     );
 }
