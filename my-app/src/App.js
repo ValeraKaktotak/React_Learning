@@ -16,8 +16,8 @@ const App = (props) => {
                 <Sidebar friendsData={props.state.sidebar}/>
                 <div className="App_wrapper_content">
                     <Routes>
-                        <Route path="/" element={<Profile postsData={props.state.profilePade}/>} />
-                        <Route path="/profile" element={<Profile postsData={props.state.profilePade}/>} />
+                        <Route path="/" element={<Profile postsData={props.state.profilePade} addPost={props.addPost} />} />
+                        <Route path="/profile" element={<Profile postsData={props.state.profilePade} addPost={props.addPost} />} />
                         <Route path="/dialogs" element={<Dialogs dialogsData={props.state.messagesPage} />} />
                         <Route path="/news" element={<News/>} />
                         <Route path="/music" element={<Music/>} />

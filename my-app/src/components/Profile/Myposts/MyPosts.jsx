@@ -5,11 +5,12 @@ import React from 'react';
 const MyPosts = (props) => {
     const posts = props.postsData.map(p => <MyPost key={p.id} message={p.message} likes={p.likes} avatar={p.avatar}/>);
 
+
     let addPostData = React.createRef();
 
     const addPost = () => {
         let text = addPostData.current.value;
-        alert(text);
+        props.addPost(text);
     }
     return (
         <div className={style.my_posts}>
