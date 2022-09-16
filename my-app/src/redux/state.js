@@ -17,12 +17,13 @@ const state = {
             {id: 5, message: 'Are you ok?'},
         ]
     },
-    profilePade: {
+    profilePage: {
         postData: [
             {id: 1, message: 'Hi, it\'s my first post', likes: 21, avatar: 'https://meragor.com/files/styles//ava_800_800_wm/avto-bmv_bmw-fon-transport-41424.jpg'},
             {id: 2, message: 'Hi, it\'s my second post', likes: 11, avatar: 'https://meragor.com/files/styles//ava_800_800_wm/avto-bmv_bmw-fon-transport-41424.jpg'},
             {id: 3, message: 'Hi, it\'s my third post', likes: 15, avatar: 'https://meragor.com/files/styles//ava_800_800_wm/avto-bmv_bmw-fon-transport-41424.jpg'},
-        ]
+        ],
+        newMessageArea: ''
     },
     sidebar: {
         friends: [
@@ -32,14 +33,19 @@ const state = {
         ]
     }
 }
-export const addPost = (text) => {
+export const addPost = () => {
     let newPostObject = {
         id: 4,
-        message: text,
+        message: state.profilePage.newMessageArea,
         likes: 0,
         avatar: 'https://meragor.com/files/styles//ava_800_800_wm/avto-bmv_bmw-fon-transport-41424.jpg'
     }
-    state.profilePade.postData.unshift(newPostObject);
+    state.profilePage.postData.unshift(newPostObject);
+    state.profilePage.newMessageArea = '';
+    render(state);
+}
+export const changePostText = (text) => {
+    state.profilePage.newMessageArea = text;
     render(state);
 }
 

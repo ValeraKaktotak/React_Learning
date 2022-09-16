@@ -1,7 +1,6 @@
-import React from 'react';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import state, {addPost} from "./redux/state";
+import state from "./redux/state";
 import {render} from "./render";
 
 render(state)
