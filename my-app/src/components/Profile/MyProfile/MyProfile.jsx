@@ -3,10 +3,10 @@ import style from './MyProfile.module.css';
 const MyProfile = () => {
     return(
       <div className={style.MyProfile}>
-          <img src="https://lifehacker.ru/wp-content/uploads/2017/03/bluesky_1488891825.jpg" alt="sky"/>
+          <img src="https://images.unian.net/photos/2015_10/thumb_files/1200_0_1445482038-9097-samaya-goryachaya-i-massivnaya-kontaktnaya-dvoynaya-zvezda-risunok-hudojnika.jpg" alt="sky"/>
           <div className={style.user_block}>
               <img
-                  src="https://w7.pngwing.com/pngs/409/621/png-transparent-computer-icons-avatar-male-user-profile-others-logo-monochrome-silhouette.png"
+                  src="https://meragor.com/files/styles//ava_800_800_wm/avto-bmv_bmw-fon-transport-41424.jpg"
                   alt="user_photo"/>
               <div className={style.user_description}>
                   <h3>Ivanov Valeriy</h3>
