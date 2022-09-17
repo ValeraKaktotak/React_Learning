@@ -1,4 +1,4 @@
-import {render} from "../render";
+let render;
 
 const state = {
     messagesPage: {
@@ -47,6 +47,10 @@ export const addPost = () => {
 export const changePostText = (text) => {
     state.profilePage.newMessageArea = text;
     render(state);
+}
+
+export const subscriber = (observer) => {
+    render = observer;
 }
 
 export default state
