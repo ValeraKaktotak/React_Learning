@@ -1,11 +1,4 @@
 let store = {
-
-    render() {
-    },
-    subscriber(observer) {
-        this.render = observer;
-    },
-
     _state: {
         messagesPage: {
             dialogData: [
@@ -54,26 +47,33 @@ let store = {
             ]
         }
     },
+    _render() {
+    },
+
+    subscriber(observer) {
+        this._render = observer;
+    },
     getState() {
         return this._state;
     },
 
-    addPost() {
-        let newPostObject = {
-            id: 4,
-            message: this._state.profilePage.newMessageArea,
-            likes: 0,
-            avatar: 'https://meragor.com/files/styles//ava_800_800_wm/avto-bmv_bmw-fon-transport-41424.jpg'
+    dispatch(action){
+        if(action.type === 'ADD-POST'){
+            let newPostObject = {
+                id: 4,
+                message: this._state.profilePage.newMessageArea,
+                likes: 0,
+                avatar: 'https://meragor.com/files/styles//ava_800_800_wm/avto-bmv_bmw-fon-transport-41424.jpg'
+            }
+            this._state.profilePage.postData.unshift(newPostObject);
+            this._state.profilePage.newMessageArea = '';
+            this._render(this._state);
         }
-        this._state.profilePage.postData.unshift(newPostObject);
-        this._state.profilePage.newMessageArea = '';
-        this.render(this._state);
-    },
-
-    changePostText(text) {
-        this._state.profilePage.newMessageArea = text;
-        this.render(this._state);
-    },
+        else if(action.type === 'CHANGE-POST-TEXT'){
+            this._state.profilePage.newMessageArea = action.newText;
+            this._render(this._state);
+        }
+    }
 }
 
 

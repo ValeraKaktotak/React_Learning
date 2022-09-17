@@ -9,11 +9,12 @@ const MyPosts = (props) => {
     let addPostData = React.createRef();
 
     const addPost = () => {
-        props.addPost();
+        props.dispatch({type: 'ADD-POST'})
     }
     const changePostText = () => {
         let text = addPostData.current.value;
-        props.changePostMessage(text);
+        let active = {type: 'CHANGE-POST-TEXT', newText: text}
+        props.dispatch(active)
     }
     return (
         <div className={style.my_posts}>
