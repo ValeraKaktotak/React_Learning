@@ -1,3 +1,29 @@
+const changePostTextActionCreatorConst = 'CHANGE-POST-TEXT';
+const addPostActionCreatorConst = 'ADD-POST';
+export const addPostActionCreator = () => {
+    return {type: addPostActionCreatorConst}
+}
+export const changePostTextActionCreator = (text) => {
+    return {
+        type: changePostTextActionCreatorConst,
+        newText: text
+    }
+}
+
+const addMessageActionCreatorConst = 'ADD-MESSAGE';
+const changeMessageTextActionCreatorConst = 'CHANGE-MESSAGE-TEXT';
+export const changeMessageTextActionCreator = (text) => {
+    return {
+        type: changeMessageTextActionCreatorConst,
+        newText: text
+    }
+}
+export const addMessageActionCreator = () => {
+    return {
+        type: addMessageActionCreatorConst
+    }
+}
+
 let store = {
     _state: {
         messagesPage: {
@@ -14,7 +40,8 @@ let store = {
                 {id: 3, message: 'Hello!)))'},
                 {id: 4, message: 'How are you?)'},
                 {id: 5, message: 'Are you ok?'},
-            ]
+            ],
+            newMessageDataArea: ''
         },
         profilePage: {
             postData: [
@@ -57,8 +84,8 @@ let store = {
         return this._state;
     },
 
-    dispatch(action){
-        if(action.type === 'ADD-POST'){
+    dispatch(action) {
+        if (action.type === addPostActionCreatorConst) {
             let newPostObject = {
                 id: 4,
                 message: this._state.profilePage.newMessageArea,
@@ -68,9 +95,19 @@ let store = {
             this._state.profilePage.postData.unshift(newPostObject);
             this._state.profilePage.newMessageArea = '';
             this._render(this._state);
-        }
-        else if(action.type === 'CHANGE-POST-TEXT'){
+        } else if (action.type === changePostTextActionCreatorConst) {
             this._state.profilePage.newMessageArea = action.newText;
+            this._render(this._state);
+        } else if (action.type === changeMessageTextActionCreatorConst) {
+            this._state.messagesPage.newMessageDataArea = action.newText;
+            this._render(this._state);
+        } else if (action.type === addMessageActionCreatorConst) {
+            let newMessageObject = {
+                id: 6,
+                message: this._state.messagesPage.newMessageDataArea
+            }
+            this._state.messagesPage.messageData.unshift(newMessageObject);
+            this._state.messagesPage.newMessageDataArea = '';
             this._render(this._state);
         }
     }

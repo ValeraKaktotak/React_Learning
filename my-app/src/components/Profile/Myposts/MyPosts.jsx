@@ -1,6 +1,7 @@
 import style from './MyPosts.module.css';
 import MyPost from "./MyPost/MyPost";
 import React from 'react';
+import {addPostActionCreator, changePostTextActionCreator} from "../../../redux/state";
 
 const MyPosts = (props) => {
     const posts = props.postsData.postData.map(p => <MyPost key={p.id} message={p.message} likes={p.likes} avatar={p.avatar}/>);
@@ -9,12 +10,11 @@ const MyPosts = (props) => {
     let addPostData = React.createRef();
 
     const addPost = () => {
-        props.dispatch({type: 'ADD-POST'})
+        props.dispatch(addPostActionCreator())
     }
     const changePostText = () => {
         let text = addPostData.current.value;
-        let active = {type: 'CHANGE-POST-TEXT', newText: text}
-        props.dispatch(active)
+        props.dispatch(changePostTextActionCreator(text))
     }
     return (
         <div className={style.my_posts}>
