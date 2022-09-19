@@ -13,7 +13,25 @@ export const addMessageActionCreator = () => {
     }
 }
 
-const messagesReducer = (state, action) =>{
+//передаем часть данных связанны с данным редьюсером для первого рендера(создание state)
+const init = {
+    dialogData: [
+        {id: 1, name: 'Valera'},
+        {id: 2, name: 'Dima'},
+        {id: 3, name: 'Sveta'},
+        {id: 4, name: 'Marina'},
+        {id: 5, name: 'Lena'},
+    ],
+    messageData: [
+        {id: 1, message: 'Hi:)'},
+        {id: 2, message: 'hi hi hi:)'},
+        {id: 3, message: 'Hello!)))'},
+        {id: 4, message: 'How are you?)'},
+        {id: 5, message: 'Are you ok?'},
+    ],
+    newMessageDataArea: ''
+}
+const messagesReducer = (state = init, action) => {
     if (action.type === changeMessageTextActionCreatorConst) {
         state.newMessageDataArea = action.newText;
     } else if (action.type === addMessageActionCreatorConst) {
