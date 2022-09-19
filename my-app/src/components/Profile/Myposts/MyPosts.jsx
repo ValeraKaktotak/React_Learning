@@ -1,7 +1,7 @@
 import style from './MyPosts.module.css';
 import MyPost from "./MyPost/MyPost";
 import React from 'react';
-import {addPostActionCreator, changePostTextActionCreator} from "../../../redux/state";
+import {addPostActionCreator, changePostTextActionCreator} from "../../../redux/profile-reducer";
 
 const MyPosts = (props) => {
     const posts = props.postsData.postData.map(p => <MyPost key={p.id} message={p.message} likes={p.likes} avatar={p.avatar}/>);
@@ -19,7 +19,7 @@ const MyPosts = (props) => {
     return (
         <div className={style.my_posts}>
             <div className={style.add_data}>
-                <textarea ref={addPostData} value={newPostText} onChange={changePostText}/>
+                <textarea ref={addPostData} value={newPostText} onChange={changePostText} placeholder='Enter your message'/>
                 <div>
                     <button onClick={addPost}>Add post</button>
                 </div>

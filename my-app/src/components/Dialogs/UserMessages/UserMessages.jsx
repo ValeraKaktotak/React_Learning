@@ -1,7 +1,7 @@
 import style from './UserMessages.module.css';
 import UserMessage from "./UserMessage/UserMessage";
 import React from "react";
-import {addMessageActionCreator, changeMessageTextActionCreator} from "../../../redux/state";
+import {addMessageActionCreator, changeMessageTextActionCreator} from "../../../redux/messages-reducer";
 
 const UserMessages = (props) => {
 
@@ -22,7 +22,7 @@ const UserMessages = (props) => {
         <div className={style.user_messages}>
             {messages}
             <div>
-                <textarea ref={messageData} value={newMassageText} onChange={changeText}/>
+                <textarea ref={messageData} value={newMassageText} onChange={changeText} placeholder='Enter your message'/>
                 <div>
                     <button onClick={sendMessage}>Send</button>
                 </div>

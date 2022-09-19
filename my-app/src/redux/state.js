@@ -1,28 +1,6 @@
-const changePostTextActionCreatorConst = 'CHANGE-POST-TEXT';
-const addPostActionCreatorConst = 'ADD-POST';
-export const addPostActionCreator = () => {
-    return {type: addPostActionCreatorConst}
-}
-export const changePostTextActionCreator = (text) => {
-    return {
-        type: changePostTextActionCreatorConst,
-        newText: text
-    }
-}
-
-const addMessageActionCreatorConst = 'ADD-MESSAGE';
-const changeMessageTextActionCreatorConst = 'CHANGE-MESSAGE-TEXT';
-export const changeMessageTextActionCreator = (text) => {
-    return {
-        type: changeMessageTextActionCreatorConst,
-        newText: text
-    }
-}
-export const addMessageActionCreator = () => {
-    return {
-        type: addMessageActionCreatorConst
-    }
-}
+import sidebarReducer from "./sidebar-reducer";
+import profileReducer from "./profile-reducer";
+import messagesReducer from "./messages-reducer";
 
 let store = {
     _state: {
@@ -76,7 +54,6 @@ let store = {
     },
     _render() {
     },
-
     subscriber(observer) {
         this._render = observer;
     },
@@ -85,31 +62,11 @@ let store = {
     },
 
     dispatch(action) {
-        if (action.type === addPostActionCreatorConst) {
-            let newPostObject = {
-                id: 4,
-                message: this._state.profilePage.newMessageArea,
-                likes: 0,
-                avatar: 'https://meragor.com/files/styles//ava_800_800_wm/avto-bmv_bmw-fon-transport-41424.jpg'
-            }
-            this._state.profilePage.postData.unshift(newPostObject);
-            this._state.profilePage.newMessageArea = '';
-            this._render(this._state);
-        } else if (action.type === changePostTextActionCreatorConst) {
-            this._state.profilePage.newMessageArea = action.newText;
-            this._render(this._state);
-        } else if (action.type === changeMessageTextActionCreatorConst) {
-            this._state.messagesPage.newMessageDataArea = action.newText;
-            this._render(this._state);
-        } else if (action.type === addMessageActionCreatorConst) {
-            let newMessageObject = {
-                id: 6,
-                message: this._state.messagesPage.newMessageDataArea
-            }
-            this._state.messagesPage.messageData.unshift(newMessageObject);
-            this._state.messagesPage.newMessageDataArea = '';
-            this._render(this._state);
-        }
+        profileReducer(this._state.profilePage, action)
+        messagesReducer(this._state.messagesPage, action)
+        sidebarReducer(this._state.sidebar, action)
+
+        this._render(this._state);
     }
 }
 
