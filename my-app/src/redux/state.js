@@ -1,3 +1,7 @@
+import sidebarReducer from "./sidebar-reducer";
+import profileReducer from "./profile-reducer";
+import messagesReducer from "./messages-reducer";
+
 let store = {
     _state: {
         messagesPage: {
@@ -14,7 +18,8 @@ let store = {
                 {id: 3, message: 'Hello!)))'},
                 {id: 4, message: 'How are you?)'},
                 {id: 5, message: 'Are you ok?'},
-            ]
+            ],
+            newMessageDataArea: ''
         },
         profilePage: {
             postData: [
@@ -49,7 +54,6 @@ let store = {
     },
     _render() {
     },
-
     subscriber(observer) {
         this._render = observer;
     },
@@ -57,22 +61,12 @@ let store = {
         return this._state;
     },
 
-    dispatch(action){
-        if(action.type === 'ADD-POST'){
-            let newPostObject = {
-                id: 4,
-                message: this._state.profilePage.newMessageArea,
-                likes: 0,
-                avatar: 'https://meragor.com/files/styles//ava_800_800_wm/avto-bmv_bmw-fon-transport-41424.jpg'
-            }
-            this._state.profilePage.postData.unshift(newPostObject);
-            this._state.profilePage.newMessageArea = '';
-            this._render(this._state);
-        }
-        else if(action.type === 'CHANGE-POST-TEXT'){
-            this._state.profilePage.newMessageArea = action.newText;
-            this._render(this._state);
-        }
+    dispatch(action) {
+        profileReducer(this._state.profilePage, action)
+        messagesReducer(this._state.messagesPage, action)
+        sidebarReducer(this._state.sidebar, action)
+
+        this._render(this._state);
     }
 }
 
