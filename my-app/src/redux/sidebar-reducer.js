@@ -1,4 +1,4 @@
-//передаем часть данных связанны с данным редьюсером для первого рендера(создание state)
+//передаем часть данных связанных с данным редьюсером для первого рендера(создание state)
 const init = {
     friends: [
         {id: 1, avatar: 'https://marvel.com.ru/imagecache/original/uploads/images/ued3m0s0HRwkYy6KAM1F.png'},

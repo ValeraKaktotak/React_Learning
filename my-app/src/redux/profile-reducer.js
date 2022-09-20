@@ -10,7 +10,7 @@ export const changePostTextActionCreator = (text) => {
 export const addPostActionCreator = () => {
     return {type: addPostActionCreatorConst}
 }
-//передаем часть данных связанны с данным редьюсером для первого рендера(создание state)
+//передаем часть данных связанных с данным редьюсером для первого рендера(создание state)
 const init = {
     postData: [
         {
