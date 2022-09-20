@@ -1,28 +1,25 @@
 import style from './UserMessages.module.css';
 import UserMessage from "./UserMessage/UserMessage";
 import React from "react";
-import {addMessageActionCreator, changeMessageTextActionCreator} from "../../../redux/messages-reducer";
 
 const UserMessages = (props) => {
 
-    const messages = props.dialogsData.messageData.map(m => <UserMessage key={m.id} message={m.message}/>);
+    const messages = props.messages.map(m => <UserMessage key={m.id} message={m.message}/>);
 
-    let newMassageText = props.dialogsData.newMessageDataArea;
+    let newMassageText = props.newMessageText;
 
-    let messageData = React.createRef();
-
-    const changeText = () => {
-        let text = messageData.current.value;
-        props.dispatch(changeMessageTextActionCreator(text));
+    const changeText = (e) => {
+        let text = e.currentTarget.value;
+        props.onChangeText(text);
     }
     const sendMessage = () => {
-        props.dispatch(addMessageActionCreator());
+        props.onSendMessage();
     }
     return (
         <div className={style.user_messages}>
             {messages}
             <div>
-                <textarea ref={messageData} value={newMassageText} onChange={changeText} placeholder='Enter your message'/>
+                <textarea value={newMassageText} onChange={changeText} placeholder='Enter your message'/>
                 <div>
                     <button onClick={sendMessage}>Send</button>
                 </div>
