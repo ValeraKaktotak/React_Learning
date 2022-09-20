@@ -3,7 +3,7 @@ import UserDialog from "./UserDialog/UserDialog";
 
 const UserDialogs = (props) => {
 
-    const dialogs = props.dialogsData.map(d => <UserDialog key={d.id} name={d.name} id={d.id} />);
+    const dialogs = props.dialogs.map(d => <UserDialog key={d.id} name={d.name} id={d.id} />);
     return(
         <div className={style.user_dialogs}>
             { dialogs }
