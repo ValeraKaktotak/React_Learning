@@ -1,8 +1,5 @@
-.friends{
-    padding: 5px;
+.friends_block{
     display: grid;
-}
-.friends img{
-    border-radius: 50%;
-    width: 100%;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
 }

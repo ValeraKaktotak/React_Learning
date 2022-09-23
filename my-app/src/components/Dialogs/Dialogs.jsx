@@ -1,12 +1,12 @@
 import style from './Dialogs.module.css';
-import UserDialogs from "./UserDialogs/UserDialogs";
-import UserMessages from "./UserMessages/UserMessages";
+import UserMessagesContainer from "./UserMessages/UserMessagesContainer";
+import UserDialogsContainer from "./UserDialogs/UserDialogsContainer";
 
-const Dialogs = (props) => {
+const Dialogs = () => {
     return(
         <div className={style.dialogs}>
-            <UserDialogs dialogsData={props.dialogsData.dialogData} />
-            <UserMessages dialogsData={props.dialogsData} dispatch={props.dispatch} />
+            <UserDialogsContainer />
+            <UserMessagesContainer />
         </div>
     );
 }

@@ -1,12 +1,13 @@
 import style from './Profile.module.css';
-import MyPosts from "./Myposts/MyPosts";
 import MyProfile from "./MyProfile/MyProfile";
+import MyPostsContainer from "./Myposts/MyPostsContainer";
 
-const Profile = (props) => {
+const Profile = () => {
     return (
         <article className={style.profile}>
             <MyProfile/>
-            <MyPosts postsData={props.postsData} dispatch={props.dispatch} />
+            {/*<MyPostsContainer store={props.store} />*/}
+            <MyPostsContainer />
         </article>);
 }
 

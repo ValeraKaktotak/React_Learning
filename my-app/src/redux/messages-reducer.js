@@ -13,16 +13,39 @@ export const addMessageActionCreator = () => {
     }
 }
 
-const messagesReducer = (state, action) =>{
+//передаем часть данных связанных с данным редьюсером для первого рендера(создание state)
+const init = {
+    dialogData: [
+        {id: 1, name: 'Valera'},
+        {id: 2, name: 'Dima'},
+        {id: 3, name: 'Sveta'},
+        {id: 4, name: 'Marina'},
+        {id: 5, name: 'Lena'},
+    ],
+    messageData: [
+        {id: 1, message: 'Hi:)'},
+        {id: 2, message: 'hi hi hi:)'},
+        {id: 3, message: 'Hello!)))'},
+        {id: 4, message: 'How are you?)'},
+        {id: 5, message: 'Are you ok?'},
+    ],
+    newMessageDataArea: ''
+}
+const messagesReducer = (state = init, action) => {
     if (action.type === changeMessageTextActionCreatorConst) {
-        state.newMessageDataArea = action.newText;
+        let copyState = {...state};
+        copyState.newMessageDataArea = action.newText;
+        return copyState;
     } else if (action.type === addMessageActionCreatorConst) {
         let newMessageObject = {
             id: 6,
             message: state.newMessageDataArea
         }
-        state.messageData.unshift(newMessageObject);
-        state.newMessageDataArea = '';
+        let copyState = {...state};
+        copyState.messageData = [...state.messageData]
+        copyState.messageData.unshift(newMessageObject);
+        copyState.newMessageDataArea = '';
+        return copyState;
     }
     return state
 }

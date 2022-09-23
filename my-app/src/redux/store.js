@@ -54,7 +54,7 @@ let store = {
     },
     _render() {
     },
-    subscriber(observer) {
+    subscribe(observer) {
         this._render = observer;
     },
     getState() {
@@ -62,9 +62,9 @@ let store = {
     },
 
     dispatch(action) {
-        profileReducer(this._state.profilePage, action)
-        messagesReducer(this._state.messagesPage, action)
-        sidebarReducer(this._state.sidebar, action)
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.messagesPage = messagesReducer(this._state.messagesPage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
 
         this._render(this._state);
     }
