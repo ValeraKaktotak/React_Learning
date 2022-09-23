@@ -13,9 +13,6 @@ const Sidebar = () => {
                 <li><NavLink to="/settings" className = { navData => navData.isActive ? style.active: ''} >Settings</NavLink></li>
             </ul>
             <h3>My friends</h3>
-            {/*<div className={style.friends_block}>*/}
-            {/*    <FriendsContainer />*/}
-            {/*</div>*/}
             <FriendsContainer />
         </nav>
     );

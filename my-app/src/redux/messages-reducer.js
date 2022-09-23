@@ -33,14 +33,19 @@ const init = {
 }
 const messagesReducer = (state = init, action) => {
     if (action.type === changeMessageTextActionCreatorConst) {
-        state.newMessageDataArea = action.newText;
+        let copyState = {...state};
+        copyState.newMessageDataArea = action.newText;
+        return copyState;
     } else if (action.type === addMessageActionCreatorConst) {
         let newMessageObject = {
             id: 6,
             message: state.newMessageDataArea
         }
-        state.messageData.unshift(newMessageObject);
-        state.newMessageDataArea = '';
+        let copyState = {...state};
+        copyState.messageData = [...state.messageData]
+        copyState.messageData.unshift(newMessageObject);
+        copyState.newMessageDataArea = '';
+        return copyState;
     }
     return state
 }

@@ -42,10 +42,15 @@ const profileReducer = (state = init, action) => {
             likes: 0,
             avatar: 'https://meragor.com/files/styles//ava_800_800_wm/avto-bmv_bmw-fon-transport-41424.jpg'
         }
-        state.postData.unshift(newPostObject);
-        state.newMessageArea = '';
+        let copyState = {...state};
+        copyState.postData = [...state.postData]
+        copyState.postData.unshift(newPostObject);
+        copyState.newMessageArea = '';
+        return copyState
     } else if (action.type === changePostTextActionCreatorConst) {
-        state.newMessageArea = action.newText;
+        let copyState = {...state};
+        copyState.newMessageArea = action.newText;
+        return copyState
     }
     return state
 }
