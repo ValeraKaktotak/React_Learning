@@ -1,9 +1,8 @@
 import style from './Sidebar.module.css';
 import {NavLink} from "react-router-dom";
-import Friends from "./Friends/Friends";
+import FriendsContainer from "./Friends/FriendsContainer";
 
-const Sidebar = (props) => {
-    const friends = props.friendsData.friends.map(f => <Friends key={f.id} avatar={f.avatar}/>)
+const Sidebar = () => {
     return (
         <nav className={style.sidebar}>
             <ul>
@@ -14,11 +13,14 @@ const Sidebar = (props) => {
                 <li><NavLink to="/settings" className = { navData => navData.isActive ? style.active: ''} >Settings</NavLink></li>
             </ul>
             <h3>My friends</h3>
-            <div className={style.friends_block}>
-                {friends}
-            </div>
+            {/*<div className={style.friends_block}>*/}
+            {/*    <FriendsContainer />*/}
+            {/*</div>*/}
+            <FriendsContainer />
         </nav>
     );
 }
+
+
 
 export default Sidebar

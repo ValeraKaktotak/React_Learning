@@ -5,12 +5,19 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import {BrowserRouter} from "react-router-dom";
+import {Provider} from "react-redux";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-const render = (state) => {
+const render = () => {
     root.render(
         <React.StrictMode>
-            <App state={state} store={store} dispatch={store.dispatch.bind(store)}/>
+            <BrowserRouter>
+                <Provider store={store}>
+                    {/*<App state={state} store={store} dispatch={store.dispatch.bind(store)}/>*/}
+                    <App/>
+                </Provider>
+            </BrowserRouter>
         </React.StrictMode>
     )
 }
