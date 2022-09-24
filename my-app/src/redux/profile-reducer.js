@@ -42,15 +42,24 @@ const profileReducer = (state = init, action) => {
             likes: 0,
             avatar: 'https://meragor.com/files/styles//ava_800_800_wm/avto-bmv_bmw-fon-transport-41424.jpg'
         }
-        let copyState = {...state};
-        copyState.postData = [...state.postData]
-        copyState.postData.unshift(newPostObject);
-        copyState.newMessageArea = '';
-        return copyState
+        // let copyState = {...state};
+        // copyState.postData = [...state.postData]
+        // copyState.postData.unshift(newPostObject);
+        // copyState.newMessageArea = '';
+        // return copyState
+        return{
+            ...state,
+            postData: [newPostObject, ...state.postData],
+            newMessageArea: ''
+        }
     } else if (action.type === changePostTextActionCreatorConst) {
-        let copyState = {...state};
-        copyState.newMessageArea = action.newText;
-        return copyState
+        // let copyState = {...state};
+        // copyState.newMessageArea = action.newText;
+        // return copyState
+        return{
+            ...state,
+            newMessageArea: action.newText
+        }
     }
     return state
 }
