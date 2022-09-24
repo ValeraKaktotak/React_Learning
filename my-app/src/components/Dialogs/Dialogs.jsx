@@ -1,3 +1,4 @@
+import React from 'react';
 import style from './Dialogs.module.css';
 import UserMessagesContainer from "./UserMessages/UserMessagesContainer";
 import UserDialogsContainer from "./UserDialogs/UserDialogsContainer";

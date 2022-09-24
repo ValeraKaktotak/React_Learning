@@ -2,11 +2,13 @@ import {combineReducers, legacy_createStore as createStore} from "redux";
 import sidebarReducer from "./sidebar-reducer";
 import profileReducer from "./profile-reducer";
 import messagesReducer from "./messages-reducer";
+import usersReducer from "./users-reducer";
 
 const reducers = combineReducers({
     messagesPage: messagesReducer,
     profilePage: profileReducer,
-    sidebar: sidebarReducer
+    sidebar: sidebarReducer,
+    users: usersReducer
 })
 
 const store = createStore(reducers);

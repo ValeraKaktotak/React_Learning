@@ -1,3 +1,4 @@
+import React from 'react';
 import style from './UserDialogs.module.css'
 import UserDialog from "./UserDialog/UserDialog";
 
