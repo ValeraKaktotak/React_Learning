@@ -1,3 +1,4 @@
+import React from 'react';
 import style from './MyProfile.module.css';
 
 const MyProfile = () => {

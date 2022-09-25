@@ -1,3 +1,4 @@
+import React from 'react';
 import UserDialogs from "./UserDialogs";
 import {connect} from "react-redux";
 

@@ -1,3 +1,4 @@
+import React from 'react';
 import UserMessages from "./UserMessages";
 import {connect} from "react-redux";
 import {addMessageActionCreator, changeMessageTextActionCreator} from "../../../redux/messages-reducer";

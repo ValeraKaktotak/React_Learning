@@ -1,3 +1,4 @@
+import React from 'react';
 import FriendsList from "./FriendsList/FriendsList";
 import style from './Friends.module.css';
 
