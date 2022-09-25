@@ -13,56 +13,7 @@ export const addUsersActionCreator = (users) => {
 }
 //передаем часть данных связанных с данным редьюсером для первого рендера(создание state)
 const init = {
-    users: [
-        {
-            id: 1,
-            message: 'Hi, i am a Boss!',
-            fullName: 'Valery I.',
-            avatar: 'https://meragor.com/files/styles//ava_800_800_wm/avto-bmv_bmw-fon-transport-41424.jpg',
-            followStatus: true,
-            place: {
-                country: 'Ukraine',
-                city: 'Kharkiv'
-            }
-
-        },
-        {
-            id: 2,
-            message: 'Hi, i am a Boss too!',
-            fullName: 'Anton S.',
-            avatar: 'https://meragor.com/files/styles//ava_800_800_wm/avto-bmv_bmw-fon-transport-41424.jpg',
-            followStatus: false,
-            place: {
-                country: 'Ukraine',
-                city: 'Kharkiv'
-            }
-
-        },
-        {
-            id: 3,
-            message: 'Hi, i am a Boss too!',
-            fullName: 'Dmitry C.',
-            avatar: 'https://meragor.com/files/styles//ava_800_800_wm/avto-bmv_bmw-fon-transport-41424.jpg',
-            followStatus: true,
-            place: {
-                country: 'Ukraine',
-                city: 'Kharkiv'
-            }
-
-        },
-        {
-            id: 4,
-            message: 'Hi, i am a Boss too!',
-            fullName: 'Sasha M.',
-            avatar: 'https://meragor.com/files/styles//ava_800_800_wm/avto-bmv_bmw-fon-transport-41424.jpg',
-            followStatus: false,
-            place: {
-                country: 'Ukraine',
-                city: 'Kharkiv'
-            }
-
-        },
-    ]
+    users: []
 }
 const usersReducer = (state = init, action) => {
     if (action.type === followActionCreatorConst) {
@@ -87,8 +38,7 @@ const usersReducer = (state = init, action) => {
         }
     } else if(action.type === addUsersActionCreatorConst){
         return {
-            ...state,
-            users: [...state.users, ...action.users]
+            ...state, users: [...state.users, ...action.users]
         }
     }
     return state
