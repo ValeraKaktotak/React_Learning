@@ -1,6 +1,9 @@
 import style from './Users.module.css';
 import React from "react";
+import * as axios from 'axios'
+import defaultAvatar from '../../assets/images/avatar.jpg'
 
+//Пример данных для users
 const userData = [
     {
         id: 1,
@@ -8,10 +11,7 @@ const userData = [
         fullName: 'Valery I.',
         avatar: 'https://meragor.com/files/styles//ava_800_800_wm/avto-bmv_bmw-fon-transport-41424.jpg',
         followStatus: true,
-        place: {
-            country: 'Ukraine',
-            city: 'Kharkiv'
-        }
+        location: 'Ukraine, Kharkov'
 
     },
     {
@@ -20,10 +20,7 @@ const userData = [
         fullName: 'Anton S.',
         avatar: 'https://meragor.com/files/styles//ava_800_800_wm/avto-bmv_bmw-fon-transport-41424.jpg',
         followStatus: false,
-        place: {
-            country: 'Ukraine',
-            city: 'Kharkiv'
-        }
+        location: 'Ukraine, Kharkov'
 
     },
     {
@@ -32,10 +29,7 @@ const userData = [
         fullName: 'Dmitry C.',
         avatar: 'https://meragor.com/files/styles//ava_800_800_wm/avto-bmv_bmw-fon-transport-41424.jpg',
         followStatus: true,
-        place: {
-            country: 'Ukraine',
-            city: 'Kharkiv'
-        }
+        location: 'Ukraine, Kharkov'
 
     },
     {
@@ -44,23 +38,23 @@ const userData = [
         fullName: 'Sasha M.',
         avatar: 'https://meragor.com/files/styles//ava_800_800_wm/avto-bmv_bmw-fon-transport-41424.jpg',
         followStatus: false,
-        place: {
-            country: 'Ukraine',
-            city: 'Kharkiv'
-        }
+        location: 'Ukraine, Kharkov'
 
     },
 ]
 
 const Users = (props) => {
+
     if(props.users.length === 0){
-        props.addUsers(userData)
+        axios.get("https://retoolapi.dev/kEIKYP/users").then(response=>{
+            props.addUsers(response.data)
+        })
     }
 
     const users = props.users.map(u =>
         <div className={style.user} key={u.id}>
             <div className={style.left}>
-                <img className={style.avatar} src={u.avatar} alt="avatar"/>
+                <img className={style.avatar} src={u.avatar? u.avatar: defaultAvatar} alt="avatar"/>
                 {u.followStatus?
                     <button onClick={()=>{props.unFollow(u.id)}}>Unfollow</ button>:
                     <button onClick={()=>{props.follow(u.id)}}>Follow</ button>
@@ -68,7 +62,7 @@ const Users = (props) => {
             </div>
             <div className={style.right}>
                 <p>{u.fullName}</p>
-                <p>{u.place.country} {u.place.city}</p>
+                <p>{u.location}</p>
                 <p>{u.message}</p>
             </div>
         </div>
