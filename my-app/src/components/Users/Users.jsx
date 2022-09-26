@@ -13,42 +13,17 @@ const userData = [
         followStatus: true,
         location: 'Ukraine, Kharkov'
 
-    },
-    {
-        id: 2,
-        message: 'Hi, i am a Boss too!',
-        fullName: 'Anton S.',
-        avatar: 'https://meragor.com/files/styles//ava_800_800_wm/avto-bmv_bmw-fon-transport-41424.jpg',
-        followStatus: false,
-        location: 'Ukraine, Kharkov'
-
-    },
-    {
-        id: 3,
-        message: 'Hi, i am a Boss too!',
-        fullName: 'Dmitry C.',
-        avatar: 'https://meragor.com/files/styles//ava_800_800_wm/avto-bmv_bmw-fon-transport-41424.jpg',
-        followStatus: true,
-        location: 'Ukraine, Kharkov'
-
-    },
-    {
-        id: 4,
-        message: 'Hi, i am a Boss too!',
-        fullName: 'Sasha M.',
-        avatar: 'https://meragor.com/files/styles//ava_800_800_wm/avto-bmv_bmw-fon-transport-41424.jpg',
-        followStatus: false,
-        location: 'Ukraine, Kharkov'
-
-    },
+    }
 ]
 
 const Users = (props) => {
 
-    if(props.users.length === 0){
-        axios.get("https://retoolapi.dev/kEIKYP/users").then(response=>{
-            props.addUsers(response.data)
-        })
+    const showUsers = () => {
+        if(props.users.length === 0){
+            axios.get("https://retoolapi.dev/kEIKYP/users").then(response=>{
+                props.addUsers(response.data)
+            })
+        }
     }
 
     const users = props.users.map(u =>
@@ -70,6 +45,7 @@ const Users = (props) => {
 
     return(
         <div className={style.users}>
+            <button onClick={showUsers}>Show Users</button>
             {users}
         </div>
     );
