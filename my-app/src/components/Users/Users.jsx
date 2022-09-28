@@ -16,39 +16,51 @@ const userData = [
     }
 ]
 
-const Users = (props) => {
+class Users extends React.Component{
 
-    const showUsers = () => {
-        if(props.users.length === 0){
+    constructor(props) {
+        super(props);
+        this.showUsers();
+    }
+
+    showUsers = () => {
+        if(this.props.users.length == 0){
             axios.get("https://retoolapi.dev/kEIKYP/users").then(response=>{
-                props.addUsers(response.data)
+                this.props.addUsers(response.data)
             })
         }
     }
 
-    const users = props.users.map(u =>
-        <div className={style.user} key={u.id}>
-            <div className={style.left}>
-                <img className={style.avatar} src={u.avatar? u.avatar: defaultAvatar} alt="avatar"/>
-                {u.followStatus?
-                    <button onClick={()=>{props.unFollow(u.id)}}>Unfollow</ button>:
-                    <button onClick={()=>{props.follow(u.id)}}>Follow</ button>
+    buildUsers = () => {
+        return(
+            this.props.users.map(u =>
+                <div className={style.user} key={u.id}>
+                    <div className={style.left}>
+                        <img className={style.avatar} src={u.avatar? u.avatar: defaultAvatar} alt="avatar"/>
+                        {u.followStatus?
+                            <button onClick={()=>{this.props.unFollow(u.id)}}>Unfollow</ button>:
+                            <button onClick={()=>{this.props.follow(u.id)}}>Follow</ button>
+                        }
+                    </div>
+                    <div className={style.right}>
+                        <p>{u.fullName}</p>
+                        <p>{u.location}</p>
+                        <p>{u.message}</p>
+                    </div>
+                </div>
+            )
+        )
+    }
+
+    render() {
+        return(
+            <div className={style.users}>
+                {
+                    this.buildUsers()
                 }
             </div>
-            <div className={style.right}>
-                <p>{u.fullName}</p>
-                <p>{u.location}</p>
-                <p>{u.message}</p>
-            </div>
-        </div>
-    );
-
-    return(
-        <div className={style.users}>
-            <button onClick={showUsers}>Show Users</button>
-            {users}
-        </div>
-    );
+        );
+    }
 }
 
 export default Users
