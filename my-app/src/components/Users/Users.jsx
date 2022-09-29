@@ -18,12 +18,7 @@ const userData = [
 
 class Users extends React.Component{
 
-    constructor(props) {
-        super(props);
-        this.showUsers();
-    }
-
-    showUsers = () => {
+    componentDidMount() {
         if(this.props.users.length == 0){
             axios.get("https://retoolapi.dev/kEIKYP/users").then(response=>{
                 this.props.addUsers(response.data)
