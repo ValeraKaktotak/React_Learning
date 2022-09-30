@@ -4,19 +4,21 @@ import {connect} from "react-redux";
 import {
     addUserCountActionCreator,
     addUsersActionCreator, changeUsersCurrentPageActionCreator,
-    followActionCreator,
+    followActionCreator, preloaderActionCreator,
     unfollowActionCreator
 } from "../../redux/users-reducer";
 import React from "react";
 import * as axios from "axios";
 import defaultAvatar from "../../assets/images/avatar.jpg";
+import Preloader from "../Preloader/Preloader";
 
 let mapStateToProps = (state) => {
     return {
         users: state.usersPage.users,
         usersCountOnPage: state.usersPage.usersCountOnPage,
         usersCount: state.usersPage.usersCount,
-        usersCurrentPage: state.usersPage.usersCurrentPage
+        usersCurrentPage: state.usersPage.usersCurrentPage,
+        isLoader: state.usersPage.isLoader
     }
 }
 
@@ -36,6 +38,9 @@ let mapDispatchToProps = (dispatch) => {
         },
         changeCurrentPage: (page) => {
             dispatch(changeUsersCurrentPageActionCreator(page))
+        },
+        preloaderActionCreator: (isLoader) => {
+            dispatch(preloaderActionCreator(isLoader))
         }
     }
 }
@@ -44,11 +49,13 @@ class UsersAPI extends React.Component{
 
     componentDidMount() {
         if(this.props.users.length === 0){
+            this.props.preloaderActionCreator(true);
             axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersCurrentPage}&count=${this.props.usersCountOnPage}`, {
                 headers:{
                     'API-KEY':'a4f8c407-514e-498b-9290-450a3d80d2b0'
                 }
             }).then(response=>{
+                this.props.preloaderActionCreator(false);
                 this.props.addUsers(response.data.items);
                 this.props.addUserCount(response.data.totalCount);
             })
@@ -78,12 +85,14 @@ class UsersAPI extends React.Component{
     }
 
     changePage = (page) => {
+        this.props.preloaderActionCreator(true);
         this.props.changeCurrentPage(page);
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.usersCountOnPage}`, {
             headers:{
                 'API-KEY':'a4f8c407-514e-498b-9290-450a3d80d2b0'
             }
         }).then(response=>{
+            this.props.preloaderActionCreator(false);
             this.props.addUsers(response.data.items);
             this.props.addUserCount(response.data.totalCount);
         })
@@ -91,11 +100,15 @@ class UsersAPI extends React.Component{
 
     render() {
         return(
-            <Users usersCount={this.props.usersCount}
-                   usersCurrentPage={this.props.usersCurrentPage}
-                   changePage={this.changePage}
-                   buildUsers={this.buildUsers}
-                   usersCountOnPage={this.props.usersCountOnPage}/>
+            <>
+                { this.props.isLoader?<Preloader/>: null}
+                <Users usersCount={this.props.usersCount}
+                       usersCurrentPage={this.props.usersCurrentPage}
+                       changePage={this.changePage}
+                       buildUsers={this.buildUsers}
+                       usersCountOnPage={this.props.usersCountOnPage}
+                />
+            </>
         );
     }
 }
