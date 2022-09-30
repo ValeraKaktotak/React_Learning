@@ -12,39 +12,6 @@ import * as axios from "axios";
 import defaultAvatar from "../../assets/images/avatar.jpg";
 import Preloader from "../Preloader/Preloader";
 
-let mapStateToProps = (state) => {
-    return {
-        users: state.usersPage.users,
-        usersCountOnPage: state.usersPage.usersCountOnPage,
-        usersCount: state.usersPage.usersCount,
-        usersCurrentPage: state.usersPage.usersCurrentPage,
-        isLoader: state.usersPage.isLoader
-    }
-}
-
-let mapDispatchToProps = (dispatch) => {
-    return {
-        follow: (userid) => {
-            dispatch(followActionCreator(userid))
-        },
-        unFollow: (userid) => {
-            dispatch(unfollowActionCreator(userid))
-        },
-        addUsers: (users) => {
-            dispatch(addUsersActionCreator(users))
-        },
-        addUserCount: (count) => {
-            dispatch(addUserCountActionCreator(count))
-        },
-        changeCurrentPage: (page) => {
-            dispatch(changeUsersCurrentPageActionCreator(page))
-        },
-        preloaderActionCreator: (isLoader) => {
-            dispatch(preloaderActionCreator(isLoader))
-        }
-    }
-}
-
 class UsersAPI extends React.Component{
 
     componentDidMount() {
@@ -113,7 +80,46 @@ class UsersAPI extends React.Component{
     }
 }
 
+let mapStateToProps = (state) => {
+    return {
+        users: state.usersPage.users,
+        usersCountOnPage: state.usersPage.usersCountOnPage,
+        usersCount: state.usersPage.usersCount,
+        usersCurrentPage: state.usersPage.usersCurrentPage,
+        isLoader: state.usersPage.isLoader
+    }
+}
+//оптимизировал эту функцию в объект ниже
+// let mapDispatchToProps = (dispatch) => {
+//     return {
+//         follow: (userid) => {
+//             dispatch(followActionCreator(userid))
+//         },
+//         unFollow: (userid) => {
+//             dispatch(unfollowActionCreator(userid))
+//         },
+//         addUsers: (users) => {
+//             dispatch(addUsersActionCreator(users))
+//         },
+//         addUserCount: (count) => {
+//             dispatch(addUserCountActionCreator(count))
+//         },
+//         changeCurrentPage: (page) => {
+//             dispatch(changeUsersCurrentPageActionCreator(page))
+//         },
+//         preloaderActionCreator: (isLoader) => {
+//             dispatch(preloaderActionCreator(isLoader))
+//         }
+//     }
+// }
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPI)
+const UsersContainer = connect(mapStateToProps, {
+    follow: followActionCreator,
+    unFollow: unfollowActionCreator,
+    addUsers: addUsersActionCreator,
+    addUserCount: addUserCountActionCreator,
+    changeCurrentPage: changeUsersCurrentPageActionCreator,
+    preloaderActionCreator: preloaderActionCreator
+    })(UsersAPI)
 
 export default UsersContainer
