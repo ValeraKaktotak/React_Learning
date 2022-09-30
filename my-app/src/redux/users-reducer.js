@@ -3,6 +3,7 @@ const unfollowActionCreatorConst = 'UNFOLLOW';
 const addUsersActionCreatorConst = 'ADD-USERS';
 const addUsersCountActionCreatorConst = 'ADD-USERS-COUNT';
 const changeUsersCurrentPageActionCreatorConst = 'CHANGE-CURRENT-PAGE';
+const preloaderActionCreatorConst = 'PRELOADER';
 
 export const followActionCreator = (userId) => {
     return {type: followActionCreatorConst, userId}
@@ -19,12 +20,16 @@ export const addUserCountActionCreator = (count) => {
 export const changeUsersCurrentPageActionCreator = (page) => {
     return {type: changeUsersCurrentPageActionCreatorConst, page}
 }
+export const preloaderActionCreator = (isLoader) => {
+    return {type: preloaderActionCreatorConst, isLoader}
+}
 //передаем часть данных связанных с данным редьюсером для первого рендера(создание state)
 const init = {
     users: [],
     usersCountOnPage: 10,
     usersCurrentPage: 1,
-    usersCount: 0
+    usersCount: 0,
+    isLoader: false
 }
 const usersReducer = (state = init, action) => {
     if (action.type === followActionCreatorConst) {
@@ -58,6 +63,11 @@ const usersReducer = (state = init, action) => {
     } else if(action.type === changeUsersCurrentPageActionCreatorConst){
         return {
             ...state, usersCurrentPage: action.page
+        }
+    }
+    else if(action.type === preloaderActionCreatorConst){
+        return {
+            ...state, isLoader: action.isLoader
         }
     }
     return state
