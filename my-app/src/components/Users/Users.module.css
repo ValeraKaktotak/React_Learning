@@ -1,5 +1,5 @@
-.users{
-
+.users span{
+    cursor: pointer;
 }
 .user{
     display: grid;
