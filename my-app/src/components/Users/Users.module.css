@@ -24,3 +24,6 @@
     border-radius: 50%;
     margin-bottom: 10px;
 }
+.current_page{
+    font-weight: bold;
+}

@@ -1,10 +1,18 @@
 import Users from "./Users";
 import {connect} from "react-redux";
-import {addUsersActionCreator, followActionCreator, unfollowActionCreator} from "../../redux/users-reducer";
+import {
+    addUserCountActionCreator,
+    addUsersActionCreator, changeUsersCurrentPageActionCreator,
+    followActionCreator,
+    unfollowActionCreator
+} from "../../redux/users-reducer";
 
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users
+        users: state.usersPage.users,
+        usersCountOnPage: state.usersPage.usersCountOnPage,
+        usersCount: state.usersPage.usersCount,
+        usersCurrentPage: state.usersPage.usersCurrentPage
     }
 }
 
@@ -18,6 +26,12 @@ let mapDispatchToProps = (dispatch) => {
         },
         addUsers: (users) => {
             dispatch(addUsersActionCreator(users))
+        },
+        addUserCount: (count) => {
+            dispatch(addUserCountActionCreator(count))
+        },
+        changeCurrentPage: (page) => {
+            dispatch(changeUsersCurrentPageActionCreator(page))
         }
     }
 }
