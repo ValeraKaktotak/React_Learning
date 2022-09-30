@@ -1,6 +1,8 @@
 const followActionCreatorConst = 'FOLLOW';
 const unfollowActionCreatorConst = 'UNFOLLOW';
 const addUsersActionCreatorConst = 'ADD-USERS';
+const addUsersCountActionCreatorConst = 'ADD-USERS-COUNT';
+const changeUsersCurrentPageActionCreatorConst = 'CHANGE-CURRENT-PAGE';
 
 export const followActionCreator = (userId) => {
     return {type: followActionCreatorConst, userId}
@@ -11,9 +13,18 @@ export const unfollowActionCreator = (userId) => {
 export const addUsersActionCreator = (users) => {
     return {type: addUsersActionCreatorConst, users}
 }
+export const addUserCountActionCreator = (count) => {
+    return {type: addUsersCountActionCreatorConst, count}
+}
+export const changeUsersCurrentPageActionCreator = (page) => {
+    return {type: changeUsersCurrentPageActionCreatorConst, page}
+}
 //передаем часть данных связанных с данным редьюсером для первого рендера(создание state)
 const init = {
-    users: []
+    users: [],
+    usersCountOnPage: 10,
+    usersCurrentPage: 1,
+    usersCount: 0
 }
 const usersReducer = (state = init, action) => {
     if (action.type === followActionCreatorConst) {
@@ -21,7 +32,7 @@ const usersReducer = (state = init, action) => {
             ...state,
             users: state.users.map(u => {
                 if(u.id === action.userId){
-                    return {...u, followStatus: true}
+                    return {...u, followed: true}
                 }
                 return u
             })
@@ -31,17 +42,24 @@ const usersReducer = (state = init, action) => {
             ...state,
             users: state.users.map(u => {
                 if(u.id === action.userId){
-                    return{...u, followStatus: false }
+                    return{...u, followed: false }
                 }
                 return u
             })
         }
     } else if(action.type === addUsersActionCreatorConst){
         return {
-            ...state, users: [...state.users, ...action.users]
+            ...state, users: [...action.users]
+        }
+    } else if(action.type === addUsersCountActionCreatorConst){
+        return {
+            ...state, usersCount: action.count
+        }
+    } else if(action.type === changeUsersCurrentPageActionCreatorConst){
+        return {
+            ...state, usersCurrentPage: action.page
         }
     }
     return state
 }
-
 export default usersReducer
