@@ -11,39 +11,7 @@ import React from "react";
 import * as axios from "axios";
 import defaultAvatar from "../../assets/images/avatar.jpg";
 import Preloader from "../Preloader/Preloader";
-
-let mapStateToProps = (state) => {
-    return {
-        users: state.usersPage.users,
-        usersCountOnPage: state.usersPage.usersCountOnPage,
-        usersCount: state.usersPage.usersCount,
-        usersCurrentPage: state.usersPage.usersCurrentPage,
-        isLoader: state.usersPage.isLoader
-    }
-}
-
-let mapDispatchToProps = (dispatch) => {
-    return {
-        follow: (userid) => {
-            dispatch(followActionCreator(userid))
-        },
-        unFollow: (userid) => {
-            dispatch(unfollowActionCreator(userid))
-        },
-        addUsers: (users) => {
-            dispatch(addUsersActionCreator(users))
-        },
-        addUserCount: (count) => {
-            dispatch(addUserCountActionCreator(count))
-        },
-        changeCurrentPage: (page) => {
-            dispatch(changeUsersCurrentPageActionCreator(page))
-        },
-        preloaderActionCreator: (isLoader) => {
-            dispatch(preloaderActionCreator(isLoader))
-        }
-    }
-}
+import {NavLink} from "react-router-dom";
 
 class UsersAPI extends React.Component{
 
@@ -67,7 +35,10 @@ class UsersAPI extends React.Component{
             this.props.users.map(u =>
                 <div className={style.user} key={u.id}>
                     <div className={style.left}>
-                        <img className={style.avatar} src={u.photos.small? u.photos.small: defaultAvatar} alt="avatar"/>
+                        <NavLink to={`/profile/${u.id}`}>
+                            <img className={style.avatar} src={u.photos.small ? u.photos.small : defaultAvatar}
+                                 alt="avatar"/>
+                        </NavLink>
                         {u.followed?
                             <button onClick={()=>{this.props.unFollow(u.id)}}>Unfollow</ button>:
                             <button onClick={()=>{this.props.follow(u.id)}}>Follow</ button>
@@ -113,7 +84,45 @@ class UsersAPI extends React.Component{
     }
 }
 
+let mapStateToProps = (state) => {
+    return {
+        users: state.usersPage.users,
+        usersCountOnPage: state.usersPage.usersCountOnPage,
+        usersCount: state.usersPage.usersCount,
+        usersCurrentPage: state.usersPage.usersCurrentPage,
+        isLoader: state.usersPage.isLoader
+    }
+}
+//оптимизировал эту функцию в объект ниже
+// let mapDispatchToProps = (dispatch) => {
+//     return {
+//         follow: (userid) => {
+//             dispatch(followActionCreator(userid))
+//         },
+//         unFollow: (userid) => {
+//             dispatch(unfollowActionCreator(userid))
+//         },
+//         addUsers: (users) => {
+//             dispatch(addUsersActionCreator(users))
+//         },
+//         addUserCount: (count) => {
+//             dispatch(addUserCountActionCreator(count))
+//         },
+//         changeCurrentPage: (page) => {
+//             dispatch(changeUsersCurrentPageActionCreator(page))
+//         },
+//         preloaderActionCreator: (isLoader) => {
+//             dispatch(preloaderActionCreator(isLoader))
+//         }
+//     }
+// }
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPI)
 
-export default UsersContainer
+export default connect(mapStateToProps, {
+    follow: followActionCreator,
+    unFollow: unfollowActionCreator,
+    addUsers: addUsersActionCreator,
+    addUserCount: addUserCountActionCreator,
+    changeCurrentPage: changeUsersCurrentPageActionCreator,
+    preloaderActionCreator: preloaderActionCreator
+})(UsersAPI)
