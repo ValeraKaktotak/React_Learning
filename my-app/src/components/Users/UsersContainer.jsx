@@ -11,6 +11,7 @@ import React from "react";
 import * as axios from "axios";
 import defaultAvatar from "../../assets/images/avatar.jpg";
 import Preloader from "../Preloader/Preloader";
+import {NavLink} from "react-router-dom";
 
 class UsersAPI extends React.Component{
 
@@ -34,7 +35,10 @@ class UsersAPI extends React.Component{
             this.props.users.map(u =>
                 <div className={style.user} key={u.id}>
                     <div className={style.left}>
-                        <img className={style.avatar} src={u.photos.small? u.photos.small: defaultAvatar} alt="avatar"/>
+                        <NavLink to={`/profile/${u.id}`}>
+                            <img className={style.avatar} src={u.photos.small ? u.photos.small : defaultAvatar}
+                                 alt="avatar"/>
+                        </NavLink>
                         {u.followed?
                             <button onClick={()=>{this.props.unFollow(u.id)}}>Unfollow</ button>:
                             <button onClick={()=>{this.props.follow(u.id)}}>Follow</ button>
@@ -113,13 +117,12 @@ let mapStateToProps = (state) => {
 //     }
 // }
 
-const UsersContainer = connect(mapStateToProps, {
+
+export default connect(mapStateToProps, {
     follow: followActionCreator,
     unFollow: unfollowActionCreator,
     addUsers: addUsersActionCreator,
     addUserCount: addUserCountActionCreator,
     changeCurrentPage: changeUsersCurrentPageActionCreator,
     preloaderActionCreator: preloaderActionCreator
-    })(UsersAPI)
-
-export default UsersContainer
+})(UsersAPI)
