@@ -16,7 +16,12 @@ const App = () => {
             <Sidebar/>
             <div className="App_wrapper_content">
                 <Routes>
-                    <Route path="/profile/*" element={<Profile/>}/>
+                    {/*<Route path="/profile" element={<Profile/>}/>*/}
+                    {/*<Route path="/profile/:userId" element={<Profile/>}/>*/}
+                    <Route path="profile" element={<Profile />}>
+                        <Route path=":userId" element={<Profile />} />
+                    </Route>
+
                     <Route path="/dialogs" element={<Dialogs/>}/>
                     <Route path="/users" element={<UsersContainer/>}/>
                     <Route path="/news" element={<News/>}/>
