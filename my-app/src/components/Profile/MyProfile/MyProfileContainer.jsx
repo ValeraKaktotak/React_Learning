@@ -13,7 +13,7 @@ class MyProfileContainer extends React.Component{
     componentDidMount() {
         let userId = this.props.router.params.userId;
         if(!userId){
-            userId = 2;
+            userId = 26091;
         }
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`, {
             headers:{
@@ -27,7 +27,7 @@ class MyProfileContainer extends React.Component{
     componentDidUpdate(prevProps) {
         let userId = this.props.router.params.userId
         if (prevProps.router.params.userId !== userId) {
-            let userId = 2
+            let userId = 26091
             axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`, {
                 headers:{
                     'API-KEY':'a4f8c407-514e-498b-9290-450a3d80d2b0'

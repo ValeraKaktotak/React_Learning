@@ -5,3 +5,8 @@
 .header img {
     width: 60px;
 }
+.login{
+    margin: 20px;
+    display: inline-block;
+    float: right;
+}
