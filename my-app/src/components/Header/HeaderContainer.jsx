@@ -12,8 +12,10 @@ class HeaderContainer extends React.Component{
             },
             withCredentials: true
         }).then(response=>{
-            let{id, email, login} = response.data.data
-            this.props.setAuthActionCreator(id, email, login)
+            if(response.data.resultCode === 0){
+                let{id, email, login} = response.data.data;
+                this.props.setAuthActionCreator(id, email, login)
+            }
         })
     }
 

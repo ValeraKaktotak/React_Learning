@@ -21,7 +21,8 @@ class UsersAPI extends React.Component{
             axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersCurrentPage}&count=${this.props.usersCountOnPage}`, {
                 headers:{
                     'API-KEY':'a4f8c407-514e-498b-9290-450a3d80d2b0'
-                }
+                },
+                withCredentials: true
             }).then(response=>{
                 this.props.preloaderActionCreator(false);
                 this.props.addUsers(response.data.items);
@@ -40,8 +41,38 @@ class UsersAPI extends React.Component{
                                  alt="avatar"/>
                         </NavLink>
                         {u.followed?
-                            <button onClick={()=>{this.props.unFollow(u.id)}}>Unfollow</ button>:
-                            <button onClick={()=>{this.props.follow(u.id)}}>Follow</ button>
+                            <button onClick={()=>
+                                {
+                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
+                                        headers:{
+                                            'API-KEY':'a4f8c407-514e-498b-9290-450a3d80d2b0'
+                                        },
+                                        withCredentials: true
+                                    }).then(response=>{
+                                        if(response.data.resultCode === 0){
+                                            this.props.unFollow(u.id)
+                                        }
+                                    })
+                                }
+                            }>
+                                Unfollow
+                            </ button>:
+                            <button onClick={()=>
+                                {
+                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,{}, {
+                                        headers:{
+                                            'API-KEY':'a4f8c407-514e-498b-9290-450a3d80d2b0'
+                                        },
+                                        withCredentials: true
+                                    }).then(response=>{
+                                        if(response.data.resultCode === 0){
+                                            this.props.follow(u.id)
+                                        }
+                                    })
+                                }
+                            }>
+                                Follow
+                            </ button>
                         }
                     </div>
                     <div className={style.right}>
@@ -61,7 +92,8 @@ class UsersAPI extends React.Component{
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.usersCountOnPage}`, {
             headers:{
                 'API-KEY':'a4f8c407-514e-498b-9290-450a3d80d2b0'
-            }
+            },
+            withCredentials: true
         }).then(response=>{
             this.props.preloaderActionCreator(false);
             this.props.addUsers(response.data.items);
