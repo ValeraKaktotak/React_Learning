@@ -7,7 +7,7 @@ import {
     useNavigate,
     useParams,
 } from "react-router-dom";
-import {API} from "../../../api/api";
+import {ProfileAPI} from "../../../api/api";
 
 class MyProfileContainer extends React.Component{
     componentDidMount() {
@@ -15,7 +15,7 @@ class MyProfileContainer extends React.Component{
         if(!userId){
             userId = 26091;
         }
-        API.getUser(userId)
+        ProfileAPI.getUser(userId)
         .then(response=>{
             this.props.setProfileActionCreator(response);
         })
@@ -25,7 +25,7 @@ class MyProfileContainer extends React.Component{
         let userId = this.props.router.params.userId
         if (prevProps.router.params.userId !== userId) {
             let userId = 26091
-            API.getUser(userId)
+            ProfileAPI.getUser(userId)
             .then(response => {
                 this.props.setProfileActionCreator(response);
             });

@@ -11,15 +11,15 @@ import React from "react";
 import defaultAvatar from "../../assets/images/avatar.jpg";
 import Preloader from "../Preloader/Preloader";
 import {NavLink} from "react-router-dom";
-import {API} from "../../api/api";
+import {FollowAPI, UsersAPI} from "../../api/api";
 
 
-class UsersAPI extends React.Component{
+class UsersContainer extends React.Component{
 
     componentDidMount() {
         if(this.props.users.length === 0){
             this.props.preloaderActionCreator(true);
-            API.getUsers(this.props.usersCurrentPage, this.props.usersCountOnPage)
+            UsersAPI.getUsers(this.props.usersCurrentPage, this.props.usersCountOnPage)
             .then(response=>{
                 this.props.preloaderActionCreator(false);
                 this.props.addUsers(response.items);
@@ -40,7 +40,7 @@ class UsersAPI extends React.Component{
                         {u.followed?
                             <button onClick={()=>
                                 {
-                                    API.unfollow(u.id)
+                                    FollowAPI.unfollowUser(u.id)
                                     .then(response=>{
                                         if(response.resultCode === 0){
                                             this.props.unFollow(u.id)
@@ -52,7 +52,7 @@ class UsersAPI extends React.Component{
                             </ button>:
                             <button onClick={()=>
                                 {
-                                    API.follow(u.id)
+                                    FollowAPI.followUser(u.id)
                                         .then(response=>{
                                         if(response.resultCode === 0){
                                             this.props.follow(u.id)
@@ -78,7 +78,7 @@ class UsersAPI extends React.Component{
     changePage = (page) => {
         this.props.preloaderActionCreator(true);
         this.props.changeCurrentPage(page);
-        API.getUsers(page, this.props.usersCountOnPage)
+        UsersAPI.getUsers(page, this.props.usersCountOnPage)
         .then(response=>{
             this.props.preloaderActionCreator(false);
             this.props.addUsers(response.items);
@@ -142,4 +142,4 @@ export default connect(mapStateToProps, {
     addUserCount: addUserCountActionCreator,
     changeCurrentPage: changeUsersCurrentPageActionCreator,
     preloaderActionCreator: preloaderActionCreator
-})(UsersAPI)
+})(UsersContainer)

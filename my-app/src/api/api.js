@@ -8,35 +8,44 @@ const axiosCreeds = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
 });
 
-export const API = {
+export const UsersAPI = {
     getUsers (usersCurrentPage = 1, usersCountOnPage = 10){
         return(
             axiosCreeds.get(`users?page=${usersCurrentPage}&count=${usersCountOnPage}`)
             .then(response=>response.data)
         )
-    },
-    unfollow (userID){
+    }
+}
+
+export const FollowAPI = {
+    unfollowUser (userID){
         return(
             axiosCreeds.delete(`follow/${userID}`)
-            .then(response=>response.data)
+                .then(response=>response.data)
         )
     },
-    follow (userID){
+    followUser (userID){
         return(
             axiosCreeds.post(`follow/${userID}`)
-            .then(response=>response.data)
+                .then(response=>response.data)
         )
-    },
+    }
+}
+
+export const AuthAPI = {
     authMe (){
         return(
             axiosCreeds.get(`auth/me/`)
-            .then(response=>response.data)
+                .then(response=>response.data)
         )
-    },
+    }
+}
+
+export const ProfileAPI = {
     getUser (userId){
         return(
             axiosCreeds.get(`profile/${userId}`)
-            .then(response=>response.data)
+                .then(response=>response.data)
         )
     }
 }
