@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {
     addUserCountActionCreator,
     addUsersActionCreator, changeUsersCurrentPageActionCreator,
-    followActionCreator, preloaderActionCreator,
+    followActionCreator, followingProcessActionCreator, preloaderActionCreator,
     unfollowActionCreator
 } from "../../redux/users-reducer";
 import React from "react";
@@ -38,25 +38,29 @@ class UsersContainer extends React.Component{
                                  alt="avatar"/>
                         </NavLink>
                         {u.followed?
-                            <button onClick={()=>
+                            <button disabled={this.props.followingProgress.some(id => id === u.id)} onClick={()=>
                                 {
+                                    this.props.followingProcess(true, u.id);
                                     FollowAPI.unfollowUser(u.id)
                                     .then(response=>{
                                         if(response.resultCode === 0){
                                             this.props.unFollow(u.id)
                                         }
+                                        this.props.followingProcess(false, u.id);
                                     })
                                 }
                             }>
                                 Unfollow
                             </ button>:
-                            <button onClick={()=>
+                            <button disabled={this.props.followingProgress.some(id => id === u.id)} onClick={()=>
                                 {
+                                    this.props.followingProcess(true, u.id);
                                     FollowAPI.followUser(u.id)
                                         .then(response=>{
                                         if(response.resultCode === 0){
                                             this.props.follow(u.id)
                                         }
+                                        this.props.followingProcess(false, u.id);
                                     })
                                 }
                             }>
@@ -107,7 +111,8 @@ let mapStateToProps = (state) => {
         usersCountOnPage: state.usersPage.usersCountOnPage,
         usersCount: state.usersPage.usersCount,
         usersCurrentPage: state.usersPage.usersCurrentPage,
-        isLoader: state.usersPage.isLoader
+        isLoader: state.usersPage.isLoader,
+        followingProgress: state.usersPage.isFollowingProcess
     }
 }
 //оптимизировал эту функцию в объект ниже
@@ -141,5 +146,6 @@ export default connect(mapStateToProps, {
     addUsers: addUsersActionCreator,
     addUserCount: addUserCountActionCreator,
     changeCurrentPage: changeUsersCurrentPageActionCreator,
-    preloaderActionCreator: preloaderActionCreator
+    preloaderActionCreator: preloaderActionCreator,
+    followingProcess:followingProcessActionCreator
 })(UsersContainer)
