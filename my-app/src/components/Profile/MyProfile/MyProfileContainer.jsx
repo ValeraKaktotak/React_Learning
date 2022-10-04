@@ -1,13 +1,13 @@
 import React from 'react';
 import MyProfile from "./MyProfile";
 import {connect} from "react-redux";
-import * as axios from "axios";
 import {setProfileActionCreator} from "../../../redux/profile-reducer";
 import {
     useLocation,
     useNavigate,
     useParams,
 } from "react-router-dom";
+import {ProfileAPI} from "../../../api/api";
 
 class MyProfileContainer extends React.Component{
     componentDidMount() {
@@ -15,12 +15,9 @@ class MyProfileContainer extends React.Component{
         if(!userId){
             userId = 26091;
         }
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`, {
-            headers:{
-                'API-KEY':'a4f8c407-514e-498b-9290-450a3d80d2b0'
-            }
-        }).then(response=>{
-            this.props.setProfileActionCreator(response.data);
+        ProfileAPI.getUser(userId)
+        .then(response=>{
+            this.props.setProfileActionCreator(response);
         })
     }
 
@@ -28,13 +25,10 @@ class MyProfileContainer extends React.Component{
         let userId = this.props.router.params.userId
         if (prevProps.router.params.userId !== userId) {
             let userId = 26091
-            axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`, {
-                headers:{
-                    'API-KEY':'a4f8c407-514e-498b-9290-450a3d80d2b0'
-                }
-            }).then(response => {
-                    this.props.setProfileActionCreator(response.data);
-                });
+            ProfileAPI.getUser(userId)
+            .then(response => {
+                this.props.setProfileActionCreator(response);
+            });
         }
     }
 
