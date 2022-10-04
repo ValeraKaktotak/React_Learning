@@ -1,6 +1,7 @@
 import React from 'react';
 import style from './MyProfile.module.css';
 import Preloader from "../../Preloader/Preloader";
+import defaultAvatar from "../../../assets/images/avatar.jpg";
 
 const MyProfile = (props) => {
     if(!props.profile){
@@ -13,7 +14,7 @@ const MyProfile = (props) => {
                 <img src="https://images.unian.net/photos/2015_10/thumb_files/1200_0_1445482038-9097-samaya-goryachaya-i-massivnaya-kontaktnaya-dvoynaya-zvezda-risunok-hudojnika.jpg" alt="sky"/>
                 <div className={style.user_block}>
                     <img
-                        src={props.profile.photos.small}
+                        src={ !props.profile.photos.small?defaultAvatar:props.profile.photos.small}
                         alt="user_photo"/>
                     <div className={style.user_description}>
                         <h3>{props.profile.fullName}</h3>
