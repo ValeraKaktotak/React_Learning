@@ -17,15 +17,13 @@ import {FollowAPI, UsersAPI} from "../../api/api";
 class UsersContainer extends React.Component{
 
     componentDidMount() {
-        if(this.props.users.length === 0){
-            this.props.preloaderActionCreator(true);
-            UsersAPI.getUsers(this.props.usersCurrentPage, this.props.usersCountOnPage)
-            .then(response=>{
-                this.props.preloaderActionCreator(false);
-                this.props.addUsers(response.items);
-                this.props.addUserCount(response.totalCount);
-            })
-        }
+    this.props.preloaderActionCreator(true);
+    UsersAPI.getUsers(this.props.usersCurrentPage, this.props.usersCountOnPage)
+        .then(response=>{
+            this.props.addUsers(response.items);
+            this.props.addUserCount(response.totalCount);
+            this.props.preloaderActionCreator(false);
+        })
     }
 
     buildUsers = () => {
@@ -84,9 +82,9 @@ class UsersContainer extends React.Component{
         this.props.changeCurrentPage(page);
         UsersAPI.getUsers(page, this.props.usersCountOnPage)
         .then(response=>{
-            this.props.preloaderActionCreator(false);
             this.props.addUsers(response.items);
             this.props.addUserCount(response.totalCount);
+            this.props.preloaderActionCreator(false);
         })
     }
 
