@@ -32,17 +32,8 @@ let mapStateToProps = (state) => {
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        onSendMessage: () => {
-            dispatch(addMessageActionCreator())
-        },
-        onChangeText: (text) => {
-            dispatch(changeMessageTextActionCreator(text))
-        }
-    }
-}
-
-const UserMessagesContainer = connect(mapStateToProps, mapDispatchToProps)(UserMessages)
+const UserMessagesContainer = connect(mapStateToProps, {
+    onSendMessage: addMessageActionCreator,
+    onChangeText: changeMessageTextActionCreator})(UserMessages)
 
 export default UserMessagesContainer

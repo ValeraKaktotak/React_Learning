@@ -8,6 +8,7 @@ const changeUsersCurrentPageActionCreatorConst = 'CHANGE-CURRENT-PAGE';
 const preloaderActionCreatorConst = 'PRELOADER';
 const followingProcessActionCreatorConst = 'TOGGLE_IS_FOLLOWING';
 
+// Action creators
 export const followActionCreator = (userId) => {
     return {type: followActionCreatorConst, userId}
 }
@@ -30,7 +31,7 @@ export const followingProcessActionCreator = (toggleStatus, userId) => {
     return {type: followingProcessActionCreatorConst, toggleStatus, userId}
 }
 
-
+// thunk action creators
 export const getUsersThunkActionCreator = (usersCurrentPage, usersCountOnPage) => {
     return (dispatch) =>{
         dispatch(preloaderActionCreator(true))
@@ -54,6 +55,7 @@ export const changePagesThunkActionCreator = (usersCurrentPage, usersCountOnPage
             })
     }
 }
+
 //передаем часть данных связанных с данным редьюсером для первого рендера(создание state)
 const init = {
     users: [],
