@@ -1,3 +1,5 @@
+import {ProfileAPI} from "../api/api";
+
 const changePostTextActionCreatorConst = 'CHANGE-POST-TEXT';
 const addPostActionCreatorConst = 'ADD-POST';
 const setProfileActionCreatorConst = 'SET-PROFILE';
@@ -14,6 +16,15 @@ export const addPostActionCreator = () => {
 export const setProfileActionCreator = (profile) => {
     return {type: setProfileActionCreatorConst, profile}
 }
+export const getUserThunkActionCreator = (userId) => {
+    return (dispatch) => {
+        ProfileAPI.getUser(userId)
+        .then(response => {
+            dispatch(setProfileActionCreator(response))
+        })
+    }
+}
+
 //передаем часть данных связанных с данным редьюсером для первого рендера(создание state)
 const init = {
     postData: [

@@ -2,30 +2,19 @@ import style from './Users.module.css';
 import Users from "./Users";
 import {connect} from "react-redux";
 import {
-    addUserCountActionCreator,
-    addUsersActionCreator, changeUsersCurrentPageActionCreator,
-    followActionCreator, preloaderActionCreator,
-    unfollowActionCreator
+    changePagesThunkActionCreator, followThunkActionCreator,
+    getUsersThunkActionCreator, unfollowThunkActionCreator
 } from "../../redux/users-reducer";
 import React from "react";
 import defaultAvatar from "../../assets/images/avatar.jpg";
 import Preloader from "../Preloader/Preloader";
 import {NavLink} from "react-router-dom";
-import {FollowAPI, UsersAPI} from "../../api/api";
 
 
 class UsersContainer extends React.Component{
 
     componentDidMount() {
-        if(this.props.users.length === 0){
-            this.props.preloaderActionCreator(true);
-            UsersAPI.getUsers(this.props.usersCurrentPage, this.props.usersCountOnPage)
-            .then(response=>{
-                this.props.preloaderActionCreator(false);
-                this.props.addUsers(response.items);
-                this.props.addUserCount(response.totalCount);
-            })
-        }
+        this.props.getUser(this.props.usersCurrentPage, this.props.usersCountOnPage)
     }
 
     buildUsers = () => {
@@ -38,26 +27,16 @@ class UsersContainer extends React.Component{
                                  alt="avatar"/>
                         </NavLink>
                         {u.followed?
-                            <button onClick={()=>
+                            <button disabled={this.props.followingProgress.some(id => id === u.id)} onClick={()=>
                                 {
-                                    FollowAPI.unfollowUser(u.id)
-                                    .then(response=>{
-                                        if(response.resultCode === 0){
-                                            this.props.unFollow(u.id)
-                                        }
-                                    })
+                                    this.props.setUnfollow(u.id)
                                 }
                             }>
                                 Unfollow
                             </ button>:
-                            <button onClick={()=>
+                            <button disabled={this.props.followingProgress.some(id => id === u.id)} onClick={()=>
                                 {
-                                    FollowAPI.followUser(u.id)
-                                        .then(response=>{
-                                        if(response.resultCode === 0){
-                                            this.props.follow(u.id)
-                                        }
-                                    })
+                                    this.props.setFollow(u.id)
                                 }
                             }>
                                 Follow
@@ -76,14 +55,7 @@ class UsersContainer extends React.Component{
     }
 
     changePage = (page) => {
-        this.props.preloaderActionCreator(true);
-        this.props.changeCurrentPage(page);
-        UsersAPI.getUsers(page, this.props.usersCountOnPage)
-        .then(response=>{
-            this.props.preloaderActionCreator(false);
-            this.props.addUsers(response.items);
-            this.props.addUserCount(response.totalCount);
-        })
+        this.props.changePage(page, this.props.usersCountOnPage)
     }
 
     render() {
@@ -107,7 +79,8 @@ let mapStateToProps = (state) => {
         usersCountOnPage: state.usersPage.usersCountOnPage,
         usersCount: state.usersPage.usersCount,
         usersCurrentPage: state.usersPage.usersCurrentPage,
-        isLoader: state.usersPage.isLoader
+        isLoader: state.usersPage.isLoader,
+        followingProgress: state.usersPage.isFollowingProcess
     }
 }
 //оптимизировал эту функцию в объект ниже
@@ -136,10 +109,8 @@ let mapStateToProps = (state) => {
 
 
 export default connect(mapStateToProps, {
-    follow: followActionCreator,
-    unFollow: unfollowActionCreator,
-    addUsers: addUsersActionCreator,
-    addUserCount: addUserCountActionCreator,
-    changeCurrentPage: changeUsersCurrentPageActionCreator,
-    preloaderActionCreator: preloaderActionCreator
+    changePage:changePagesThunkActionCreator,
+    getUser:getUsersThunkActionCreator,
+    setUnfollow: unfollowThunkActionCreator,
+    setFollow: followThunkActionCreator,
 })(UsersContainer)
