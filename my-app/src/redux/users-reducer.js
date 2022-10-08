@@ -1,3 +1,5 @@
+import {UsersAPI} from "../api/api";
+
 const followActionCreatorConst = 'FOLLOW';
 const unfollowActionCreatorConst = 'UNFOLLOW';
 const addUsersActionCreatorConst = 'ADD-USERS';
@@ -26,6 +28,31 @@ export const preloaderActionCreator = (isLoader) => {
 }
 export const followingProcessActionCreator = (toggleStatus, userId) => {
     return {type: followingProcessActionCreatorConst, toggleStatus, userId}
+}
+
+
+export const getUsersThunkActionCreator = (usersCurrentPage, usersCountOnPage) => {
+    return (dispatch) =>{
+        dispatch(preloaderActionCreator(true))
+        UsersAPI.getUsers(usersCurrentPage, usersCountOnPage)
+            .then(response=>{
+                dispatch(addUsersActionCreator(response.items))
+                dispatch(addUserCountActionCreator(response.totalCount))
+                dispatch(preloaderActionCreator(false))
+            })
+    }
+}
+export const changePagesThunkActionCreator = (usersCurrentPage, usersCountOnPage) => {
+    return (dispatch) =>{
+        dispatch(preloaderActionCreator(true))
+        dispatch(changeUsersCurrentPageActionCreator(usersCurrentPage))
+        UsersAPI.getUsers(usersCurrentPage, usersCountOnPage)
+            .then(response=>{
+                dispatch(addUsersActionCreator(response.items))
+                dispatch(addUserCountActionCreator(response.totalCount))
+                dispatch(preloaderActionCreator(false))
+            })
+    }
 }
 //передаем часть данных связанных с данным редьюсером для первого рендера(создание state)
 const init = {

@@ -2,28 +2,21 @@ import style from './Users.module.css';
 import Users from "./Users";
 import {connect} from "react-redux";
 import {
-    addUserCountActionCreator,
-    addUsersActionCreator, changeUsersCurrentPageActionCreator,
-    followActionCreator, followingProcessActionCreator, preloaderActionCreator,
+    changePagesThunkActionCreator, followActionCreator,
+    followingProcessActionCreator, getUsersThunkActionCreator,
     unfollowActionCreator
 } from "../../redux/users-reducer";
 import React from "react";
 import defaultAvatar from "../../assets/images/avatar.jpg";
 import Preloader from "../Preloader/Preloader";
 import {NavLink} from "react-router-dom";
-import {FollowAPI, UsersAPI} from "../../api/api";
+import {FollowAPI} from "../../api/api";
 
 
 class UsersContainer extends React.Component{
 
     componentDidMount() {
-    this.props.preloaderActionCreator(true);
-    UsersAPI.getUsers(this.props.usersCurrentPage, this.props.usersCountOnPage)
-        .then(response=>{
-            this.props.addUsers(response.items);
-            this.props.addUserCount(response.totalCount);
-            this.props.preloaderActionCreator(false);
-        })
+        this.props.getUser(this.props.usersCurrentPage, this.props.usersCountOnPage)
     }
 
     buildUsers = () => {
@@ -78,14 +71,7 @@ class UsersContainer extends React.Component{
     }
 
     changePage = (page) => {
-        this.props.preloaderActionCreator(true);
-        this.props.changeCurrentPage(page);
-        UsersAPI.getUsers(page, this.props.usersCountOnPage)
-        .then(response=>{
-            this.props.addUsers(response.items);
-            this.props.addUserCount(response.totalCount);
-            this.props.preloaderActionCreator(false);
-        })
+        this.props.changePage(page, this.props.usersCountOnPage)
     }
 
     render() {
@@ -139,11 +125,9 @@ let mapStateToProps = (state) => {
 
 
 export default connect(mapStateToProps, {
+    changePage:changePagesThunkActionCreator,
+    getUser:getUsersThunkActionCreator,
     follow: followActionCreator,
     unFollow: unfollowActionCreator,
-    addUsers: addUsersActionCreator,
-    addUserCount: addUserCountActionCreator,
-    changeCurrentPage: changeUsersCurrentPageActionCreator,
-    preloaderActionCreator: preloaderActionCreator,
     followingProcess:followingProcessActionCreator
 })(UsersContainer)
