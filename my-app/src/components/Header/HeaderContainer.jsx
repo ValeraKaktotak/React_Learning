@@ -1,18 +1,11 @@
 import React from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
-import {setAuthActionCreator} from "../../redux/auth-reducer";
-import {AuthAPI} from "../../api/api";
+import {setHeaderAuthThunkActionCreator} from "../../redux/auth-reducer";
 
 class HeaderContainer extends React.Component{
     componentDidMount() {
-        AuthAPI.authMe()
-        .then(response=>{
-            if(response.resultCode === 0){
-                let{id, email, login} = response.data;
-                this.props.setAuthActionCreator(id, email, login)
-            }
-        })
+        this.props.authUser()
     }
 
     render(){
@@ -30,4 +23,9 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default connect (mapStateToProps, {setAuthActionCreator})(HeaderContainer)
+export default connect (mapStateToProps, {authUser:setHeaderAuthThunkActionCreator})(HeaderContainer)
+
+
+//follow: (userid) => {
+//  dispatch(followActionCreator(userid))
+//}
