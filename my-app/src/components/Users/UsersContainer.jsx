@@ -2,15 +2,13 @@ import style from './Users.module.css';
 import Users from "./Users";
 import {connect} from "react-redux";
 import {
-    changePagesThunkActionCreator, followActionCreator,
-    followingProcessActionCreator, getUsersThunkActionCreator,
-    unfollowActionCreator
+    changePagesThunkActionCreator, followThunkActionCreator,
+    getUsersThunkActionCreator, unfollowThunkActionCreator
 } from "../../redux/users-reducer";
 import React from "react";
 import defaultAvatar from "../../assets/images/avatar.jpg";
 import Preloader from "../Preloader/Preloader";
 import {NavLink} from "react-router-dom";
-import {FollowAPI} from "../../api/api";
 
 
 class UsersContainer extends React.Component{
@@ -31,28 +29,14 @@ class UsersContainer extends React.Component{
                         {u.followed?
                             <button disabled={this.props.followingProgress.some(id => id === u.id)} onClick={()=>
                                 {
-                                    this.props.followingProcess(true, u.id);
-                                    FollowAPI.unfollowUser(u.id)
-                                    .then(response=>{
-                                        if(response.resultCode === 0){
-                                            this.props.unFollow(u.id)
-                                        }
-                                        this.props.followingProcess(false, u.id);
-                                    })
+                                    this.props.setUnfollow(u.id)
                                 }
                             }>
                                 Unfollow
                             </ button>:
                             <button disabled={this.props.followingProgress.some(id => id === u.id)} onClick={()=>
                                 {
-                                    this.props.followingProcess(true, u.id);
-                                    FollowAPI.followUser(u.id)
-                                        .then(response=>{
-                                        if(response.resultCode === 0){
-                                            this.props.follow(u.id)
-                                        }
-                                        this.props.followingProcess(false, u.id);
-                                    })
+                                    this.props.setFollow(u.id)
                                 }
                             }>
                                 Follow
@@ -127,7 +111,6 @@ let mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
     changePage:changePagesThunkActionCreator,
     getUser:getUsersThunkActionCreator,
-    follow: followActionCreator,
-    unFollow: unfollowActionCreator,
-    followingProcess:followingProcessActionCreator
+    setUnfollow: unfollowThunkActionCreator,
+    setFollow: followThunkActionCreator,
 })(UsersContainer)

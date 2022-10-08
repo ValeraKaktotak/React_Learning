@@ -1,4 +1,4 @@
-import {UsersAPI} from "../api/api";
+import {FollowAPI, UsersAPI} from "../api/api";
 
 const followActionCreatorConst = 'FOLLOW';
 const unfollowActionCreatorConst = 'UNFOLLOW';
@@ -53,6 +53,30 @@ export const changePagesThunkActionCreator = (usersCurrentPage, usersCountOnPage
                 dispatch(addUserCountActionCreator(response.totalCount))
                 dispatch(preloaderActionCreator(false))
             })
+    }
+}
+export const unfollowThunkActionCreator = (usersId) => {
+    return (dispatch) =>{
+        dispatch(followingProcessActionCreator(true, usersId))
+        FollowAPI.unfollowUser(usersId)
+        .then(response=>{
+            if(response.resultCode === 0){
+                dispatch(unfollowActionCreator(usersId))
+            }
+            dispatch(followingProcessActionCreator(false, usersId))
+        })
+    }
+}
+export const followThunkActionCreator = (usersId) => {
+    return (dispatch) =>{
+        dispatch(followingProcessActionCreator(true, usersId))
+        FollowAPI.followUser(usersId)
+        .then(response=>{
+            if(response.resultCode === 0){
+                dispatch(followActionCreator(usersId))
+            }
+            dispatch(followingProcessActionCreator(false, usersId))
+        })
     }
 }
 
