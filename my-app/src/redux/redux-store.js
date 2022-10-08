@@ -1,4 +1,4 @@
-import {combineReducers, legacy_createStore as createStore} from "redux";
+import {applyMiddleware, combineReducers, legacy_createStore as createStore} from "redux";
 import sidebarReducer from "./sidebar-reducer";
 import profileReducer from "./profile-reducer";
 import messagesReducer from "./messages-reducer";
@@ -13,7 +13,7 @@ const reducers = combineReducers({
     loginAuth: authReducer
 })
 
-const store = createStore(reducers);
+const store = createStore(reducers, applyMiddleware);
 
 window.store = store;
 
