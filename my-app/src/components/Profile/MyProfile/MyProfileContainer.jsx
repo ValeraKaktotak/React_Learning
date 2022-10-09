@@ -14,14 +14,14 @@ class MyProfileContainer extends React.Component{
         if(!userId){
             userId = 26091;
         }
-        this.props.getUserThunkActionCreator(userId)
+        this.props.getUser(userId)
     }
 
     componentDidUpdate(prevProps) {
         let userId = this.props.router.params.userId
         if (prevProps.router.params.userId !== userId) {
             let userId = 26091
-            this.props.getUserThunkActionCreator(userId)
+            this.props.getUser(userId)
         }
     }
 
@@ -55,4 +55,4 @@ function withRouter(Component) {
     return ComponentWithRouterProp;
 }
 
-export default connect(mapStateToProps, {getUserThunkActionCreator} )(withRouter(MyProfileContainer))
+export default connect(mapStateToProps, {getUser:getUserThunkActionCreator} )(withRouter(MyProfileContainer))

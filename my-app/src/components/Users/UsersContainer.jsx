@@ -8,7 +8,7 @@ import {
 import React from "react";
 import defaultAvatar from "../../assets/images/avatar.jpg";
 import Preloader from "../Preloader/Preloader";
-import {NavLink} from "react-router-dom";
+import {Navigate, NavLink} from "react-router-dom";
 
 
 class UsersContainer extends React.Component{
@@ -59,6 +59,9 @@ class UsersContainer extends React.Component{
     }
 
     render() {
+        if(!this.props.isAuth){
+            return <Navigate to="/login" />
+        }
         return(
             <>
                 { this.props.isLoader?<Preloader/>: null}
@@ -75,6 +78,7 @@ class UsersContainer extends React.Component{
 
 let mapStateToProps = (state) => {
     return {
+        isAuth: state.loginAuth.isLogged,
         users: state.usersPage.users,
         usersCountOnPage: state.usersPage.usersCountOnPage,
         usersCount: state.usersPage.usersCount,
