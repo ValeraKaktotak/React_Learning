@@ -2,6 +2,7 @@ import React from 'react';
 import UserMessages from "./UserMessages";
 import {connect} from "react-redux";
 import {addMessageActionCreator, changeMessageTextActionCreator} from "../../../redux/messages-reducer";
+import withAuthRedirect from "../../../hoc/withAuthRedirect";
 
 //старый вариант без react-redux
 // const UserMessagesContainer = (props) => {
@@ -32,8 +33,10 @@ let mapStateToProps = (state) => {
     }
 }
 
+let withAuth = withAuthRedirect(UserMessages)
+
 const UserMessagesContainer = connect(mapStateToProps, {
     onSendMessage: addMessageActionCreator,
-    onChangeText: changeMessageTextActionCreator})(UserMessages)
+    onChangeText: changeMessageTextActionCreator})(withAuth)
 
 export default UserMessagesContainer

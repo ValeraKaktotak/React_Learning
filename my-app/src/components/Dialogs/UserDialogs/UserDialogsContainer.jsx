@@ -1,6 +1,7 @@
 import React from 'react';
 import UserDialogs from "./UserDialogs";
 import {connect} from "react-redux";
+import withAuthRedirect from "../../../hoc/withAuthRedirect";
 
 //старый вариант без react-redux
 // const UserDialogsContainer = (props) => {
@@ -19,6 +20,8 @@ let mapStateToProps = (state) => {
     }
 }
 
-const UserDialogsContainer = connect(mapStateToProps)(UserDialogs);
+let withAuth = withAuthRedirect(UserDialogs)
+
+const UserDialogsContainer = connect(mapStateToProps)(withAuth);
 
 export default UserDialogsContainer

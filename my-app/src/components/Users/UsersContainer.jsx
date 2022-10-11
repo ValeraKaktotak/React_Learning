@@ -79,7 +79,6 @@ let withAuth = withAuthRedirect(UsersContainer)
 
 let mapStateToProps = (state) => {
     return {
-        isAuth: state.loginAuth.isLogged,
         users: state.usersPage.users,
         usersCountOnPage: state.usersPage.usersCountOnPage,
         usersCount: state.usersPage.usersCount,
