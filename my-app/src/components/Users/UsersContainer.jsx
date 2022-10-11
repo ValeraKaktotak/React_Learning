@@ -8,7 +8,8 @@ import {
 import React from "react";
 import defaultAvatar from "../../assets/images/avatar.jpg";
 import Preloader from "../Preloader/Preloader";
-import {Navigate, NavLink} from "react-router-dom";
+import {NavLink} from "react-router-dom";
+import withAuthRedirect from "../../hoc/withAuthRedirect";
 
 
 class UsersContainer extends React.Component{
@@ -59,9 +60,7 @@ class UsersContainer extends React.Component{
     }
 
     render() {
-        if(!this.props.isAuth){
-            return <Navigate to="/login" />
-        }
+
         return(
             <>
                 { this.props.isLoader?<Preloader/>: null}
@@ -75,6 +74,8 @@ class UsersContainer extends React.Component{
         );
     }
 }
+
+let withAuth = withAuthRedirect(UsersContainer)
 
 let mapStateToProps = (state) => {
     return {
@@ -117,4 +118,4 @@ export default connect(mapStateToProps, {
     getUser:getUsersThunkActionCreator,
     setUnfollow: unfollowThunkActionCreator,
     setFollow: followThunkActionCreator,
-})(UsersContainer)
+})(withAuth)
