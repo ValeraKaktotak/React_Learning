@@ -2,11 +2,7 @@ import React from 'react';
 import MyProfile from "./MyProfile";
 import {connect} from "react-redux";
 import {getUserThunkActionCreator} from "../../../redux/profile-reducer";
-import {
-    useLocation,
-    useNavigate,
-    useParams,
-} from "react-router-dom";
+import withRouter from "../../../hoc/withRouter";
 
 class MyProfileContainer extends React.Component{
     componentDidMount() {
@@ -34,25 +30,12 @@ class MyProfileContainer extends React.Component{
 
 let mapStateToProps = (state) => {
     return {
-        profile: state.profilePage.profile
+        profile: state.profilePage.profile,
+        isAuth: state.loginAuth.isLogged,
     }
 }
 
-//для react v6 специальная функция обвертка для HOC withRouter. Вверху импорт методов
-function withRouter(Component) {
-    function ComponentWithRouterProp(props) {
-        let location = useLocation();
-        let navigate = useNavigate();
-        let params = useParams();
-        return (
-            <Component
-                {...props}
-                router={{ location, navigate, params }}
-            />
-        );
-    }
+//для react v6 специальная функция обвертка для HOC withRouter.
+let withRouterComponent = withRouter(MyProfileContainer)
 
-    return ComponentWithRouterProp;
-}
-
-export default connect(mapStateToProps, {getUser:getUserThunkActionCreator} )(withRouter(MyProfileContainer))
+export default connect(mapStateToProps, {getUser:getUserThunkActionCreator} )(withRouterComponent)
