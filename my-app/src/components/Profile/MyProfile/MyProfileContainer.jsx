@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {getUserThunkActionCreator} from "../../../redux/profile-reducer";
 import withRouter from "../../../hoc/withRouter";
 import withAuthRedirect from "../../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 class MyProfileContainer extends React.Component{
     componentDidMount() {
@@ -35,10 +36,19 @@ let mapStateToProps = (state) => {
     }
 }
 
+/*
+Объединил HOCs в функции compose
 //для react v6 специальная функция обвертка для HOC withRouter.
-let withRouterComponent = withRouter(MyProfileContainer)
+//let withRouterComponent = withRouter(MyProfileContainer)
 
 //HOC для проверки залогинен ли пользователь
-let withAuth = withAuthRedirect(withRouterComponent)
+//let withAuth = withAuthRedirect(withRouterComponent)
 
-export default connect(mapStateToProps, {getUser:getUserThunkActionCreator} )(withAuth)
+//export default connect(mapStateToProps, {getUser:getUserThunkActionCreator} )(withAuth)
+ */
+
+export default compose(
+    withRouter,
+    withAuthRedirect,
+    connect(mapStateToProps, {getUser:getUserThunkActionCreator} )
+)(MyProfileContainer)

@@ -3,6 +3,7 @@ import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 import {addPostActionCreator, changePostTextActionCreator} from "../../../redux/profile-reducer";
 import withAuthRedirect from "../../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 // вариант настройки контейнерной компоненты без использования react-redux
 //
@@ -41,9 +42,14 @@ let mapDispatchToProps = (dispatch) => {
     }
 }
 
+/*
+Объединил HOCs в функции compose
 let withAuth = withAuthRedirect(MyPosts)
-
 const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(withAuth)
+ */
 
 
-export default MyPostsContainer
+export default compose(
+    withAuthRedirect,
+    connect(mapStateToProps, mapDispatchToProps)
+)(MyPosts)
