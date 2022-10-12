@@ -2,6 +2,8 @@ import React from 'react';
 import UserMessages from "./UserMessages";
 import {connect} from "react-redux";
 import {addMessageActionCreator, changeMessageTextActionCreator} from "../../../redux/messages-reducer";
+import withAuthRedirect from "../../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 //старый вариант без react-redux
 // const UserMessagesContainer = (props) => {
@@ -31,9 +33,18 @@ let mapStateToProps = (state) => {
         newMessageText: state.messagesPage.newMessageDataArea,
     }
 }
+/*
+Объединил HOCs в функции compose
+let withAuth = withAuthRedirect(UserMessages)
 
 const UserMessagesContainer = connect(mapStateToProps, {
     onSendMessage: addMessageActionCreator,
-    onChangeText: changeMessageTextActionCreator})(UserMessages)
+    onChangeText: changeMessageTextActionCreator})(withAuth)
 
-export default UserMessagesContainer
+ */
+
+export default compose(withAuthRedirect,
+    connect(mapStateToProps, {
+        onSendMessage: addMessageActionCreator,
+        onChangeText: changeMessageTextActionCreator})
+    )(UserMessages)

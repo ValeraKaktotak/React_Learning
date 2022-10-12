@@ -1,5 +1,6 @@
 import {Navigate} from "react-router-dom";
 import React from "react";
+import {connect} from "react-redux";
 
 const withAuthRedirect = (Component) => {
     const withAuthRedirectContainer = (props) => {
@@ -10,7 +11,14 @@ const withAuthRedirect = (Component) => {
             <Component {...props}/>
         )
     }
-    return withAuthRedirectContainer
+
+    let mapStateToProps = (state) => {
+        return {
+            isAuth: state.loginAuth.isLogged
+        }
+    }
+
+    return connect(mapStateToProps)(withAuthRedirectContainer)
 }
 
 export default withAuthRedirect

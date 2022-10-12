@@ -2,11 +2,9 @@ import React from 'react';
 import MyProfile from "./MyProfile";
 import {connect} from "react-redux";
 import {getUserThunkActionCreator} from "../../../redux/profile-reducer";
-import {
-    useLocation,
-    useNavigate,
-    useParams,
-} from "react-router-dom";
+import withRouter from "../../../hoc/withRouter";
+import withAuthRedirect from "../../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 class MyProfileContainer extends React.Component{
     componentDidMount() {
@@ -38,21 +36,19 @@ let mapStateToProps = (state) => {
     }
 }
 
-//для react v6 специальная функция обвертка для HOC withRouter. Вверху импорт методов
-function withRouter(Component) {
-    function ComponentWithRouterProp(props) {
-        let location = useLocation();
-        let navigate = useNavigate();
-        let params = useParams();
-        return (
-            <Component
-                {...props}
-                router={{ location, navigate, params }}
-            />
-        );
-    }
+/*
+Объединил HOCs в функции compose
+//для react v6 специальная функция обвертка для HOC withRouter.
+//let withRouterComponent = withRouter(MyProfileContainer)
 
-    return ComponentWithRouterProp;
-}
+//HOC для проверки залогинен ли пользователь
+//let withAuth = withAuthRedirect(withRouterComponent)
 
-export default connect(mapStateToProps, {getUser:getUserThunkActionCreator} )(withRouter(MyProfileContainer))
+//export default connect(mapStateToProps, {getUser:getUserThunkActionCreator} )(withAuth)
+ */
+
+export default compose(
+    withRouter,
+    withAuthRedirect,
+    connect(mapStateToProps, {getUser:getUserThunkActionCreator} )
+)(MyProfileContainer)

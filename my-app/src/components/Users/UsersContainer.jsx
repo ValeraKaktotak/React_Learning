@@ -10,6 +10,7 @@ import defaultAvatar from "../../assets/images/avatar.jpg";
 import Preloader from "../Preloader/Preloader";
 import {NavLink} from "react-router-dom";
 import withAuthRedirect from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
 class UsersContainer extends React.Component{
@@ -75,11 +76,8 @@ class UsersContainer extends React.Component{
     }
 }
 
-let withAuth = withAuthRedirect(UsersContainer)
-
 let mapStateToProps = (state) => {
     return {
-        isAuth: state.loginAuth.isLogged,
         users: state.usersPage.users,
         usersCountOnPage: state.usersPage.usersCountOnPage,
         usersCount: state.usersPage.usersCount,
@@ -112,6 +110,10 @@ let mapStateToProps = (state) => {
 //     }
 // }
 
+/*
+Объединил HOCs в функции compose
+
+let withAuth = withAuthRedirect(UsersContainer)
 
 export default connect(mapStateToProps, {
     changePage:changePagesThunkActionCreator,
@@ -119,3 +121,15 @@ export default connect(mapStateToProps, {
     setUnfollow: unfollowThunkActionCreator,
     setFollow: followThunkActionCreator,
 })(withAuth)
+*/
+
+export default compose(
+    withAuthRedirect,
+    connect(mapStateToProps, {
+        changePage:changePagesThunkActionCreator,
+        getUser:getUsersThunkActionCreator,
+        setUnfollow: unfollowThunkActionCreator,
+        setFollow: followThunkActionCreator,
+    })
+)(UsersContainer)
+
