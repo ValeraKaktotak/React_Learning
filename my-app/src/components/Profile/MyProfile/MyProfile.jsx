@@ -2,6 +2,7 @@ import React from 'react';
 import style from './MyProfile.module.css';
 import Preloader from "../../Preloader/Preloader";
 import defaultAvatar from "../../../assets/images/avatar.jpg";
+import MyStatus from "./MyStatus";
 
 const MyProfile = (props) => {
     if(!props.profile){
@@ -11,12 +12,12 @@ const MyProfile = (props) => {
     }else{
         return(
             <div className={style.MyProfile}>
-                <img src="https://images.unian.net/photos/2015_10/thumb_files/1200_0_1445482038-9097-samaya-goryachaya-i-massivnaya-kontaktnaya-dvoynaya-zvezda-risunok-hudojnika.jpg" alt="sky"/>
                 <div className={style.user_block}>
                     <img
                         src={ !props.profile.photos.small?defaultAvatar:props.profile.photos.small}
                         alt="user_photo"/>
                     <div className={style.user_description}>
+                        <MyStatus value={"yo-yo"}/>
                         <h3>{props.profile.fullName}</h3>
                         <h4>{props.profile.aboutMe}</h4>
                         <h4>Date of birth: 14.10.1988</h4>
