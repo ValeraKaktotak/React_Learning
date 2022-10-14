@@ -4,15 +4,29 @@ class MyStatus extends React.Component {
     state = {
         editMode: false
     }
+
+    activateEditMode = () => {
+        this.setState({
+            editMode:true
+        })
+    }
+    deActivateEditMode = () => {
+        this.setState({
+            editMode:false
+        })
+    }
+
     render() {
         return (
             <>
                 {!this.state.editMode?
-                    <div>
+                    <div onClick={this.activateEditMode}>
+                        <span>Ваш статус: </span>
+                        <br />
                         <span>{this.props.value}</span>
                     </div>:
                     <div>
-                        <input type="text" value={this.props.value}/>
+                        <input autoFocus={true} type="text" value={this.props.value} onBlur={this.deActivateEditMode}/>
                     </div>
                 }
             </>

@@ -132,7 +132,7 @@ const usersReducer = (state = init, action) => {
                 ...state,
                 isFollowingProcess: action.toggleStatus
                     ?[...state.isFollowingProcess, action.userId ]
-                    :[...state.isFollowingProcess.filter(id=> id !== action.userId)]
+                    :[...state.isFollowingProcess.filter(id => id !== action.userId)]
             }
     }
     return state
