@@ -1,7 +1,7 @@
 import React from 'react';
 import MyProfile from "./MyProfile";
 import {connect} from "react-redux";
-import {getUserThunkActionCreator} from "../../../redux/profile-reducer";
+import {getUserStatusThunkActionCreator, getUserThunkActionCreator} from "../../../redux/profile-reducer";
 import withRouter from "../../../hoc/withRouter";
 import withAuthRedirect from "../../../hoc/withAuthRedirect";
 import {compose} from "redux";
@@ -13,6 +13,7 @@ class MyProfileContainer extends React.Component{
             userId = 26091;
         }
         this.props.getUser(userId)
+        this.props.getUserStatus(userId)
     }
 
     componentDidUpdate(prevProps) {
@@ -25,14 +26,15 @@ class MyProfileContainer extends React.Component{
 
     render() {
         return (
-            <MyProfile profile={this.props.profile} />
+            <MyProfile profile={this.props.profile} userStatus={this.props.userStatus} getUserStatus={this.props.getUserStatus} />
         )
     }
 }
 
 let mapStateToProps = (state) => {
     return {
-        profile: state.profilePage.profile
+        profile: state.profilePage.profile,
+        userStatus: state.profilePage.userStatus
     }
 }
 
@@ -50,5 +52,6 @@ let mapStateToProps = (state) => {
 export default compose(
     withRouter,
     withAuthRedirect,
-    connect(mapStateToProps, {getUser:getUserThunkActionCreator} )
+    connect(mapStateToProps, {getUser:getUserThunkActionCreator,
+    getUserStatus: getUserStatusThunkActionCreator} )
 )(MyProfileContainer)

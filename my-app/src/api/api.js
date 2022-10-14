@@ -47,5 +47,11 @@ export const ProfileAPI = {
             axiosCreeds.get(`profile/${userId}`)
                 .then(response=>response.data)
         )
+    },
+    getUserStatus (userId){
+        return(
+            axiosCreeds.get(`/profile/status/${userId}`)
+                .then(response=>response.data)
+        )
     }
 }
