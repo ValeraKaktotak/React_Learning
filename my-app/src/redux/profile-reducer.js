@@ -38,6 +38,17 @@ export const getUserStatusThunkActionCreator = (userId) => {
     }
 }
 
+export const setUserStatusThunkActionCreator = (status) => {
+    return (dispatch) => {
+        ProfileAPI.setUserStatus(status)
+        .then(response => {
+            if(response.resultCode === 0){
+                dispatch(setUserStatusActionCreator(status))
+            }
+        })
+    }
+}
+
 //передаем часть данных связанных с данным редьюсером для первого рендера(создание state)
 const init = {
     postData: [

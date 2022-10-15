@@ -26,7 +26,7 @@ class MyStatus extends React.Component {
                         <span>{this.props.value}</span>
                     </div>:
                     <div>
-                        <input autoFocus={true} type="text" value={this.props.value} onBlur={this.deActivateEditMode}/>
+                        <input autoFocus={true} type="text" value={this.props.value} onBlur={this.deActivateEditMode} />
                     </div>
                 }
             </>

@@ -53,5 +53,13 @@ export const ProfileAPI = {
             axiosCreeds.get(`/profile/status/${userId}`)
                 .then(response=>response.data)
         )
+    },
+    setUserStatus (userStatus){
+        return (
+            axiosCreeds.put(`/profile/status`, {
+                status: userStatus
+            })
+                .then(response=>response.data)
+        )
     }
 }
