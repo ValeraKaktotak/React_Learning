@@ -22,10 +22,11 @@ class MyProfileContainer extends React.Component{
 
     componentDidUpdate(prevProps) {
         let userId = this.props.router.params.userId
-        if (!userId) {
-            userId = 26091
+
+        if (userId === "26091") {
             this.props.getUser(userId)
             this.props.getUserStatus(userId)
+            this.props.router.params.userId = '';
         }
     }
 
