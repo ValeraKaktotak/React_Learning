@@ -7,7 +7,7 @@ const Sidebar = () => {
     return (
         <nav className={style.sidebar}>
             <ul>
-                <li><NavLink to="/profile" className = { navData => navData.isActive ? style.active: '' } >Profile</NavLink></li>
+                <li><NavLink to="/profile/26091" className = { navData => navData.isActive ? style.active: '' } >Profile</NavLink></li>
                 <li><NavLink to="/dialogs" className = { navData => navData.isActive ? style.active: ''} >Messages</NavLink></li>
                 <li><NavLink to="/users" className = { navData => navData.isActive ? style.active: ''} >Users</NavLink></li>
                 <li><NavLink to="/news" className = { navData => navData.isActive ? style.active: ''} >News</NavLink></li>

@@ -3,6 +3,7 @@ import {ProfileAPI} from "../api/api";
 const changePostTextActionCreatorConst = 'CHANGE-POST-TEXT';
 const addPostActionCreatorConst = 'ADD-POST';
 const setProfileActionCreatorConst = 'SET-PROFILE';
+const setUserStatusActionCreatorConst = 'SET-STATUS';
 
 export const changePostTextActionCreator = (text) => {
     return {
@@ -16,11 +17,34 @@ export const addPostActionCreator = () => {
 export const setProfileActionCreator = (profile) => {
     return {type: setProfileActionCreatorConst, profile}
 }
+export const setUserStatusActionCreator = (status) => {
+    return {type: setUserStatusActionCreatorConst, status}
+}
+
 export const getUserThunkActionCreator = (userId) => {
     return (dispatch) => {
         ProfileAPI.getUser(userId)
         .then(response => {
             dispatch(setProfileActionCreator(response))
+        })
+    }
+}
+export const getUserStatusThunkActionCreator = (userId) => {
+    return (dispatch) => {
+        ProfileAPI.getUserStatus(userId)
+        .then(response => {
+            dispatch(setUserStatusActionCreator(response))
+        })
+    }
+}
+
+export const setUserStatusThunkActionCreator = (status) => {
+    return (dispatch) => {
+        ProfileAPI.setUserStatus(status)
+        .then(response => {
+            if(response.resultCode === 0){
+                dispatch(setUserStatusActionCreator(status))
+            }
         })
     }
 }
@@ -48,7 +72,8 @@ const init = {
         },
     ],
     newMessageArea: '',
-    profile: null
+    profile: null,
+    userStatus: ''
 }
 const profileReducer = (state = init, action) => {
     switch (action.type) {
@@ -80,6 +105,11 @@ const profileReducer = (state = init, action) => {
             return {
                 ...state,
                 profile: action.profile
+            }
+        case setUserStatusActionCreatorConst:
+            return {
+                ...state,
+                userStatus: action.status
             }
     }
     return state

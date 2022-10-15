@@ -3,13 +3,20 @@ import React from "react";
 import {connect} from "react-redux";
 
 const withAuthRedirect = (Component) => {
-    const withAuthRedirectContainer = (props) => {
-        if(!props.isAuth){
-            return <Navigate to="/login" />
+
+    class withAuthRedirectContainer extends React.Component {
+
+        componentDidUpdate(prevProps, prevState, snapshot) {
+            if(!this.props.isAuth){
+                return <Navigate to="/login" />
+            }
         }
-        return (
-            <Component {...props}/>
-        )
+
+        render (){
+            return (
+                <Component {...this.props}/>
+            )
+        }
     }
 
     let mapStateToProps = (state) => {
