@@ -13,6 +13,7 @@ const Sidebar = () => {
                 <li><NavLink to="/news" className = { navData => navData.isActive ? style.active: ''} >News</NavLink></li>
                 <li><NavLink to="/music" className = { navData => navData.isActive ? style.active: ''} >Music</NavLink></li>
                 <li><NavLink to="/settings" className = { navData => navData.isActive ? style.active: ''} >Settings</NavLink></li>
+                <li><NavLink to="/login" className = { navData => navData.isActive ? style.active: ''} >Login</NavLink></li>
             </ul>
             <h3>My friends</h3>
             <FriendsContainer />
