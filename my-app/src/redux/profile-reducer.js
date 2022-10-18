@@ -1,18 +1,18 @@
 import {ProfileAPI} from "../api/api";
 
-const changePostTextActionCreatorConst = 'CHANGE-POST-TEXT';
+//const changePostTextActionCreatorConst = 'CHANGE-POST-TEXT';
 const addPostActionCreatorConst = 'ADD-POST';
 const setProfileActionCreatorConst = 'SET-PROFILE';
 const setUserStatusActionCreatorConst = 'SET-STATUS';
 
-export const changePostTextActionCreator = (text) => {
-    return {
-        type: changePostTextActionCreatorConst,
-        newText: text
-    }
-}
-export const addPostActionCreator = () => {
-    return {type: addPostActionCreatorConst}
+// export const changePostTextActionCreator = (text) => {
+//     return {
+//         type: changePostTextActionCreatorConst,
+//         newText: text
+//     }
+// }
+export const addPostActionCreator = (message) => {
+    return {type: addPostActionCreatorConst, message: message.myMessage}
 }
 export const setProfileActionCreator = (profile) => {
     return {type: setProfileActionCreatorConst, profile}
@@ -80,7 +80,7 @@ const profileReducer = (state = init, action) => {
         case addPostActionCreatorConst:
             let newPostObject = {
                 id: 4,
-                message: state.newMessageArea,
+                message: action.message,
                 likes: 0,
                 avatar: 'https://meragor.com/files/styles//ava_800_800_wm/avto-bmv_bmw-fon-transport-41424.jpg'
             }
@@ -91,16 +91,15 @@ const profileReducer = (state = init, action) => {
             // return copyState
             return {
                 ...state,
-                postData: [newPostObject, ...state.postData],
-                newMessageArea: ''
+                postData: [newPostObject, ...state.postData]
             }
-        case changePostTextActionCreatorConst: // let copyState = {...state};
-            // copyState.newMessageArea = action.newText;
-            // return copyState
-            return {
-                ...state,
-                newMessageArea: action.newText
-            }
+        // case changePostTextActionCreatorConst: // let copyState = {...state};
+        //     // copyState.newMessageArea = action.newText;
+        //     // return copyState
+        //     return {
+        //         ...state,
+        //         newMessageArea: action.newText
+        //     }
         case setProfileActionCreatorConst:
             return {
                 ...state,

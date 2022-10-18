@@ -7,9 +7,9 @@ export const changeMessageTextActionCreator = (text) => {
         newText: text
     }
 }
-export const addMessageActionCreator = () => {
+export const addMessageActionCreator = (message) => {
     return {
-        type: addMessageActionCreatorConst
+        type: addMessageActionCreatorConst, message:message.userMessage
     }
 }
 
@@ -43,7 +43,7 @@ const messagesReducer = (state = init, action) => {
     } else if (action.type === addMessageActionCreatorConst) {
         let newMessageObject = {
             id: 6,
-            message: state.newMessageDataArea
+            message: action.message
         }
         // let copyState = {...state};
         // copyState.messageData = [...state.messageData]
