@@ -2,6 +2,8 @@ import React from 'react';
 import style from './MyPosts.module.css';
 import MyPost from "./MyPost/MyPost";
 import {Field, reduxForm} from "redux-form";
+import {maxLength20, required} from "../../../helpers/validators";
+import {Textarea} from "../../commons/FormsControls/FormsControls";
 
 const MyPosts = (props) => {
     const posts = props.posts.map(p => <MyPost key={p.id} message={p.message} likes={p.likes} avatar={p.avatar}/>);
@@ -29,10 +31,10 @@ const MyPosts = (props) => {
     );
 }
 
-const MyPostForm = (props) => {
+const MyPostsForm = (props) => {
     return(
         <form onSubmit={props.handleSubmit}>
-            <Field name="myMessage" component="textarea" placeholder='Enter your message' />
+            <Field name="myMessage" component={Textarea} placeholder='Enter your message' validate={[required, maxLength20]}/>
             <div>
                 <button>Add post</button>
             </div>
@@ -43,6 +45,6 @@ const MyPostForm = (props) => {
 let WithReduxForm = reduxForm({
     // a unique name for the form
     form: 'my-post'
-})(MyPostForm)
+})(MyPostsForm)
 
 export default MyPosts

@@ -2,6 +2,8 @@ import style from './UserMessages.module.css';
 import UserMessage from "./UserMessage/UserMessage";
 import React from "react";
 import {Field, reduxForm} from "redux-form";
+import {Textarea} from "../../commons/FormsControls/FormsControls";
+import {maxLength200, required} from "../../../helpers/validators";
 
 const UserMessages = (props) => {
 
@@ -21,7 +23,7 @@ const UserMessages = (props) => {
 const UserMessagesForm = (props) =>{
     return(
         <form onSubmit={props.handleSubmit}>
-            <Field name="userMessage" component="textarea" placeholder='Enter your message' />
+            <Field name="userMessage" component={Textarea} placeholder='Enter your message' validate={[required, maxLength200]} />
             <div>
                 <button>Send</button>
             </div>
