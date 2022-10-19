@@ -1,7 +1,7 @@
 import React from 'react';
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
-import {addPostActionCreator, changePostTextActionCreator} from "../../../redux/profile-reducer";
+import {addPostActionCreator} from "../../../redux/profile-reducer";
 import withAuthRedirect from "../../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
@@ -33,11 +33,8 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        onAddPost: () => {
-            dispatch(addPostActionCreator())
-        },
-        onChangePostText: (text) => {
-            dispatch(changePostTextActionCreator(text))
+        onAddPost: (message) => {
+            dispatch(addPostActionCreator(message))
         }
     }
 }

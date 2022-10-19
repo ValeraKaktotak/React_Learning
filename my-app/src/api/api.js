@@ -63,3 +63,24 @@ export const ProfileAPI = {
         )
     }
 }
+
+export const LoginApi = {
+    login (email, password, rememberMe){
+        return(
+            axiosCreeds.post(`/auth/login`, {
+                email,
+                password,
+                rememberMe
+            })
+                .then(response=>response.data)
+        )
+    }
+}
+
+
+
+
+
+
+
+
