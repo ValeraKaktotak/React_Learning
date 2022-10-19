@@ -9,3 +9,13 @@ export const Textarea = ({input, meta, ...props}) => {
         </div>
     )
 }
+
+export const Element = (FormElement) => ({ input, meta, ...props }) => {
+    const hasError = meta.touched && meta.error;
+    return (
+        <div className={style.formControl+' '+(hasError?style.errorBorder: '')}>
+            <FormElement {...input} {...props} />
+            {hasError && <span>{meta.error}</span>}
+        </div>
+    )
+}
