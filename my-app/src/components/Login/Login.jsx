@@ -4,10 +4,18 @@ import {connect} from "react-redux";
 import {loginUserThunkActionCreator} from "../../redux/login-reducer";
 import {Element} from "../commons/FormsControls/FormsControls";
 import {maxLength20, required} from "../../helpers/validators";
+import {Navigate} from "react-router-dom";
+import React from "react";
 
 const Login = (props) => {
     const onSubmitFunction = (formData) => {
-        loginUserThunkActionCreator(formData)
+        let {email, password, rememberMe} = formData;
+        props.login(email, password, rememberMe = false)
+    }
+    if(props.isAuth){
+        return (
+            <Navigate to="/Profile" />
+        )
     }
     return (
         <>
@@ -46,8 +54,9 @@ let WithReduxForm = reduxForm({
     form: 'login'
 })(LoginForm)
 
-let mapStateToProps = () => {
+let mapStateToProps = (state) => {
     return{
+        isAuth: state.loginAuth.isLogged
     }
 }
 

@@ -65,13 +65,19 @@ export const ProfileAPI = {
 }
 
 export const LoginApi = {
-    login (email, password, rememberMe){
+    login (email, password, rememberMe = false){
         return(
             axiosCreeds.post(`/auth/login`, {
                 email,
                 password,
                 rememberMe
             })
+                .then(response=>response.data)
+        )
+    },
+    logOut (){
+        return(
+            axiosCreeds.delete(`/auth/login`)
                 .then(response=>response.data)
         )
     }
