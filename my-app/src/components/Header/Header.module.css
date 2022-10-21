@@ -10,3 +10,8 @@
     display: inline-block;
     float: right;
 }
+
+
+.login button{
+    margin: 0 20px;
+}

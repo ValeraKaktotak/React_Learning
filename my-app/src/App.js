@@ -1,5 +1,5 @@
 import './App.css';
-import {Route, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Profile from "./components/Profile/Profile";
 import Dialogs from "./components/Dialogs/Dialogs";
@@ -17,11 +17,11 @@ const App = () => {
             <Sidebar/>
             <div className="App_wrapper_content">
                 <Routes>
-                    {/*<Route path="/profile" element={<Profile/>}/>*/}
-                    {/*<Route path="/profile/:userId" element={<Profile/>}/>*/}
-                    <Route path="profile" element={<Profile />}>
-                        <Route path=":userId" element={<Profile />} />
-                    </Route>
+                    <Route path="/profile" element={<Profile/>}/>
+                    <Route path="/profile/:userId" element={<Profile/>}/>
+                    {/*<Route path="profile" element={<Profile />}>*/}
+                    {/*    <Route path=":userId" element={<Profile />}/>*/}
+                    {/*</Route>*/}
 
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/dialogs" element={<Dialogs/>}/>

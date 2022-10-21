@@ -3,7 +3,7 @@ import style from './Dialogs.module.css';
 import UserMessagesContainer from "./UserMessages/UserMessagesContainer";
 import UserDialogsContainer from "./UserDialogs/UserDialogsContainer";
 
-const Dialogs = () => {
+const Dialogs = (props) => {
     return(
         <div className={style.dialogs}>
             <UserDialogsContainer />

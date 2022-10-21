@@ -9,12 +9,19 @@ import {
 import withRouter from "../../../hoc/withRouter";
 import withAuthRedirect from "../../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {Navigate} from "react-router-dom";
 
 class MyProfileContainer extends React.Component{
     componentDidMount() {
         let userId = this.props.router.params.userId;
+
         if(!userId){
-            userId = 26091;
+            if(!this.props.isAuth){
+                return (
+                    <Navigate to="/Profile" />
+                )
+            }
+            userId = this.props.loginId
         }
         this.props.getUserStatus(userId)
         this.props.getUser(userId)
@@ -44,16 +51,18 @@ let mapStateToProps = (state) => {
     }
 }
 
-/*
-Объединил HOCs в функции compose
-//для react v6 специальная функция обвертка для HOC withRouter.
-//let withRouterComponent = withRouter(MyProfileContainer)
 
-//HOC для проверки залогинен ли пользователь
-//let withAuth = withAuthRedirect(withRouterComponent)
+// //Объединил HOCs в функции compose
+// //для react v6 специальная функция обвертка для HOC withRouter.
+// let withRouterComponent = withRouter(MyProfileContainer)
+//
+// //HOC для проверки залогинен ли пользователь
+// let withAuth = withAuthRedirect(withRouterComponent)
+//
+// export default connect(mapStateToProps, {getUser:getUserThunkActionCreator,
+//     getUserStatus: getUserStatusThunkActionCreator,
+//     setUserStatus: setUserStatusThunkActionCreator} )(withAuth)
 
-//export default connect(mapStateToProps, {getUser:getUserThunkActionCreator} )(withAuth)
- */
 
 export default compose(
     withRouter,

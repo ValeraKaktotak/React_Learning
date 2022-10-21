@@ -3,25 +3,31 @@ import {AuthAPI} from "../api/api";
 const setAuthActionCreatorConst = 'SET-LOGIN-AUTH';
 
 // Action creators
-export const setAuthActionCreator = (id, email, login) => {
+export const setAuthActionCreator = (id, email, login, isLogged) => {
     return {
         type: setAuthActionCreatorConst,
         UserData: {
-            id, email, login
+            id, email, login, isLogged
         }
     }
 }
 
 // thunk action creators
-export const setHeaderAuthThunkActionCreator = (id, email, login) => {
+export const setHeaderAuthThunkActionCreator = () => {
     return (dispatch) => {
         AuthAPI.authMe()
             .then(response => {
                 if (response.resultCode === 0) {
                     let {id, email, login} = response.data;
-                    dispatch(setAuthActionCreator(id, email, login))
+                    dispatch(setAuthActionCreator(id, email, login, true))
                 }
             })
+    }
+}
+
+export const logOutHeaderAuthThunkActionCreator = () => {
+    return (dispatch) => {
+        dispatch(setAuthActionCreator(null, null, null, false))
     }
 }
 
@@ -37,8 +43,7 @@ const authReducer = (state = init, action) => {
         case setAuthActionCreatorConst:
             return {
                 ...state,
-                ...action.UserData,
-                isLogged: true
+                ...action.UserData
             }
     }
     return state

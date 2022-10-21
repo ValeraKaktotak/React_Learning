@@ -1,4 +1,5 @@
 import {LoginApi} from "../api/api";
+import {logOutHeaderAuthThunkActionCreator, setHeaderAuthThunkActionCreator} from "./auth-reducer";
 
 
 const confirmLoginActionCreatorConst = 'CONFIRM-LOGIN';
@@ -10,15 +11,25 @@ export const confirmLoginActionCreator = (loginData) => {
     }
 }
 
-export const loginUserThunkActionCreator = (loginData) => {
+export const loginUserThunkActionCreator = (email, password, rememberMe) => {
     return (dispatch) => {
-        let {email, password, rememberMe} = loginData;
         LoginApi.login(email, password, rememberMe)
         .then(response => {
             if(response.resultCode === 0){
-                dispatch(confirmLoginActionCreator(loginData))
+                dispatch(setHeaderAuthThunkActionCreator())
             }
         })
+    }
+}
+
+export const logOutUserThunkActionCreator = () => {
+    return (dispatch) => {
+        LoginApi.logOut()
+            .then(response => {
+                if(response.resultCode === 0){
+                    dispatch(logOutHeaderAuthThunkActionCreator())
+                }
+            })
     }
 }
 
