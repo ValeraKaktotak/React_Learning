@@ -1,4 +1,4 @@
-import {AuthAPI} from "../api/api";
+import {AuthThunkActionCreator} from "./auth-reducer";
 
 const initializationActionCreatorConst = 'INITIALIZATION';
 
@@ -10,14 +10,22 @@ export const initializationActionCreator = () => {
 }
 
 // thunk action creators
-export const initializationThunkActionCreator = () => {
+export const initializationAppThunkActionCreator = () => {
     return (dispatch) => {
-        AuthAPI.authMe()
-            .then(response => {
-                if (response.resultCode === 0) {
-                    dispatch(initializationActionCreator())
-                }
-            })
+
+        // с помощью return получили промис от axios запроса
+        let authPromise = dispatch(AuthThunkActionCreator())
+
+        // после получения промиса(после ответа сервера) запускаем наш экшен
+        authPromise.then(() => {
+            dispatch(initializationActionCreator())
+        })
+
+        // Если промисов много, помещаем их в массив и используем .then к массиву
+        // Promise.all([promise1, promise2])
+        //     .then(()=>{
+        //
+        //     })
     }
 }
 

@@ -1,5 +1,5 @@
 import {LoginApi} from "../api/api";
-import {logOutHeaderAuthThunkActionCreator, setHeaderAuthThunkActionCreator} from "./auth-reducer";
+import {logOutHeaderAuthThunkActionCreator, AuthThunkActionCreator} from "./auth-reducer";
 import {stopSubmit} from "redux-form";
 
 
@@ -17,7 +17,7 @@ export const loginUserThunkActionCreator = (email, password, rememberMe) => {
         LoginApi.login(email, password, rememberMe)
         .then(response => {
             if(response.resultCode === 0){
-                dispatch(setHeaderAuthThunkActionCreator())
+                dispatch(AuthThunkActionCreator())
             }
             else{
                 let message = response.messages.length > 0? response.messages[0]:"Some error";
