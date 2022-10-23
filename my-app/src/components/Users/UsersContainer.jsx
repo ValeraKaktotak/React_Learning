@@ -13,10 +13,9 @@ import {compose} from "redux";
 import {
     getFollowingProgress,
     getIsLoader,
-    getUsers,
     getUsersCount,
     getUsersCountOnPage,
-    getUsersCurrentPage
+    getUsersCurrentPage, getUsers
 } from "../../redux/users-selectors";
 
 
@@ -68,7 +67,7 @@ class UsersContainer extends React.Component{
     }
 
     render() {
-
+    console.log("UsersContainer RENDER");
         return(
             <>
                 { this.props.isLoader?<Preloader/>: null}
@@ -97,6 +96,7 @@ class UsersContainer extends React.Component{
 
 //mapStateToProps селекторы
 let mapStateToProps = (state) => {
+    console.log('UsersContainer mapStateToProps');
     return {
         users: getUsers(state),
         usersCountOnPage: getUsersCountOnPage(state),
