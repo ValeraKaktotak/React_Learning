@@ -13,15 +13,19 @@ export const setAuthActionCreator = (id, email, login, isLogged) => {
 }
 
 // thunk action creators
-export const setHeaderAuthThunkActionCreator = () => {
+export const AuthThunkActionCreator = () => {
     return (dispatch) => {
-        AuthAPI.authMe()
+
+        //добавили return чтобы после получения ответа с сервера запустить след. цепочку экшенов
+        return (
+            AuthAPI.authMe()
             .then(response => {
                 if (response.resultCode === 0) {
                     let {id, email, login} = response.data;
                     dispatch(setAuthActionCreator(id, email, login, true))
                 }
             })
+        )
     }
 }
 

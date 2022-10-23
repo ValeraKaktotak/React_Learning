@@ -9,8 +9,14 @@ import React from "react";
 import defaultAvatar from "../../assets/images/avatar.jpg";
 import Preloader from "../Preloader/Preloader";
 import {NavLink} from "react-router-dom";
-import withAuthRedirect from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {
+    getFollowingProgress,
+    getIsLoader,
+    getUsersCount,
+    getUsersCountOnPage,
+    getUsersCurrentPage, getUsers
+} from "../../redux/users-selectors";
 
 
 class UsersContainer extends React.Component{
@@ -61,7 +67,7 @@ class UsersContainer extends React.Component{
     }
 
     render() {
-
+    console.log("UsersContainer RENDER");
         return(
             <>
                 { this.props.isLoader?<Preloader/>: null}
@@ -76,16 +82,31 @@ class UsersContainer extends React.Component{
     }
 }
 
+//mapStateToProps без селекторов
+// let mapStateToProps = (state) => {
+//     return {
+//         users: state.usersPage.users,
+//         usersCountOnPage: state.usersPage.usersCountOnPage,
+//         usersCount: state.usersPage.usersCount,
+//         usersCurrentPage: state.usersPage.usersCurrentPage,
+//         isLoader: state.usersPage.isLoader,
+//         followingProgress: state.usersPage.isFollowingProcess
+//     }
+// }
+
+//mapStateToProps селекторы
 let mapStateToProps = (state) => {
+    console.log('UsersContainer mapStateToProps');
     return {
-        users: state.usersPage.users,
-        usersCountOnPage: state.usersPage.usersCountOnPage,
-        usersCount: state.usersPage.usersCount,
-        usersCurrentPage: state.usersPage.usersCurrentPage,
-        isLoader: state.usersPage.isLoader,
-        followingProgress: state.usersPage.isFollowingProcess
+        users: getUsers(state),
+        usersCountOnPage: getUsersCountOnPage(state),
+        usersCount: getUsersCount(state),
+        usersCurrentPage: getUsersCurrentPage(state),
+        isLoader: getIsLoader(state),
+        followingProgress: getFollowingProgress(state)
     }
 }
+
 //оптимизировал эту функцию в объект ниже
 // let mapDispatchToProps = (dispatch) => {
 //     return {
@@ -124,7 +145,6 @@ export default connect(mapStateToProps, {
 */
 
 export default compose(
-    withAuthRedirect,
     connect(mapStateToProps, {
         changePage:changePagesThunkActionCreator,
         getUser:getUsersThunkActionCreator,

@@ -29,7 +29,8 @@ const init = {
         {id: 4, message: 'How are you?)'},
         {id: 5, message: 'Are you ok?'},
     ],
-    newMessageDataArea: ''
+    newMessageDataArea: '',
+    reselectTest: 1
 }
 const messagesReducer = (state = init, action) => {
     if (action.type === changeMessageTextActionCreatorConst) {
@@ -55,6 +56,12 @@ const messagesReducer = (state = init, action) => {
             messageData: [newMessageObject, ...state.messageData],
             newMessageDataArea: ''
         }
+    } else if (action.type === "FAKE"){
+        return{
+            ...state,
+            reselectTest: state.reselectTest + 1
+        }
+
     }
     return state
 }

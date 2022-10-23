@@ -7,6 +7,7 @@ import authReducer from "./auth-reducer";
 import loginReducer from "./login-reducer";
 import thunkMiddleWear from "redux-thunk"
 import { reducer as formReducer } from 'redux-form'
+import appReducer from "./app-reducer";
 
 const reducers = combineReducers({
     messagesPage: messagesReducer,
@@ -15,7 +16,8 @@ const reducers = combineReducers({
     usersPage: usersReducer,
     loginAuth: authReducer,
     loginPage: loginReducer,
-    form: formReducer
+    form: formReducer,
+    app:appReducer
 })
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleWear));
