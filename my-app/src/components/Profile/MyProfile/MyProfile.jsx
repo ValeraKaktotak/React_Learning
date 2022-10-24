@@ -3,6 +3,7 @@ import style from './MyProfile.module.css';
 import Preloader from "../../Preloader/Preloader";
 import defaultAvatar from "../../../assets/images/avatar.jpg";
 import MyStatus from "./MyStatus";
+import MyStatusHookComponent from "./MyStatusHookComponent";
 
 const MyProfile = (props) => {
     if(!props.profile){
@@ -17,7 +18,7 @@ const MyProfile = (props) => {
                         src={ !props.profile.photos.small?defaultAvatar:props.profile.photos.small}
                         alt="user_photo"/>
                     <div className={style.user_description}>
-                        <MyStatus value={props.userStatus} setUserStatus={props.setUserStatus}/>
+                        <MyStatusHookComponent value={props.userStatus} setUserStatus={props.setUserStatus}/>
                         <h3>{props.profile.fullName}</h3>
                         <h4>{props.profile.aboutMe}</h4>
                         <h4>Date of birth: 14.10.1988</h4>

@@ -30,15 +30,18 @@ class MyProfileContainer extends React.Component{
     componentDidUpdate(prevProps) {
         let userId = this.props.router.params.userId
 
-        if (userId === "26091") {
-            this.props.getUser(userId)
+        if (userId !== prevProps.router.params.userId) {
+            if(!userId){
+                userId = this.props.loginId
+            }
             this.props.getUserStatus(userId)
-            this.props.router.params.userId = '';
-        }else if(!userId){
-            userId = this.props.loginId
             this.props.getUser(userId)
-            this.props.getUserStatus(userId)
         }
+        // else if(!userId){
+        //     userId = this.props.loginId
+        //     this.props.getUser(userId)
+        //     this.props.getUserStatus(userId)
+        // }
     }
 
     render() {

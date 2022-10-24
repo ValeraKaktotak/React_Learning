@@ -73,7 +73,7 @@ const init = {
     ],
     newMessageArea: '',
     profile: null,
-    userStatus: ''
+    userStatus: '------'
 }
 const profileReducer = (state = init, action) => {
     switch (action.type) {
