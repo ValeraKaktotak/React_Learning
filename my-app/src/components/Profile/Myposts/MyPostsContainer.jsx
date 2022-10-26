@@ -26,7 +26,7 @@ import {compose} from "redux";
 
 class MyPostContainer extends React.Component {
     shouldComponentUpdate(nextProps, nextState, nextContext) {
-        return nextProps !== this.props || nextState !== this.state
+        return nextProps === this.props || nextState === this.state
     }
 
     render() {

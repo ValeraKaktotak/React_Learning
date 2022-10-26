@@ -8,9 +8,9 @@ import MyStatus from "./MyStatus";
 class MyProfile extends React.PureComponent {
 
     //этот метод тут в качестве примера, проверка на ненужные рендеры
-    shouldComponentUpdate(nextProps, nextState, nextContext) {
-        return nextProps !== this.props || nextState !== this.state
-    }
+    // shouldComponentUpdate(nextProps, nextState, nextContext) {
+    //     return nextProps !== this.props || nextState !== this.state
+    // }
 
     render() {
         if (!this.props.profile) {
