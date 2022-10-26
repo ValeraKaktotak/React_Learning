@@ -24,6 +24,18 @@ import {compose} from "redux";
 //     );
 // }
 
+class MyPostContainer extends React.Component {
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        return nextProps !== this.props || nextState !== this.state
+    }
+
+    render() {
+        return (
+            <MyPosts {...this.props} />
+        )
+    }
+}
+
 let mapStateToProps = (state) => {
     return{
         posts: state.profilePage.postData,
@@ -49,4 +61,4 @@ const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(withAuth)
 export default compose(
     withAuthRedirect,
     connect(mapStateToProps, mapDispatchToProps)
-)(MyPosts)
+)(MyPostContainer)
