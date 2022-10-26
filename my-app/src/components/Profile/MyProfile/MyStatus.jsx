@@ -26,7 +26,7 @@ const MyStatus = (props) => {
                 <div onClick={activateEditMode}>
                     <span>Ваш статус: </span>
                     <br />
-                    <span>{statusValue}</span>
+                    <span>{props.value}</span>
                 </div>:
                 <div>
                     <input autoFocus={true} type="text" value={statusValue} onBlur={deActivateEditMode} onChange={changeStatus}/>
