@@ -3,7 +3,25 @@ import style from './News.module.css';
 
 const News = () => {
     const [count, setCount] = useState(0);
-    console.log("render");
+    const objA ={
+        one: "1",
+        two: [1,2],
+        three: {
+            four: 4
+        }
+    }
+
+    const objB = {...objA};
+    objA.three.four = 44;
+
+    console.log(objB);
+
+    objB.three = {...objB.three}
+    objA.three.four = 444;
+
+    console.log(objB);
+
+
     return (
         <>
             <div className={style.news}>
