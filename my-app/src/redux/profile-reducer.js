@@ -21,14 +21,14 @@ export const setUserStatusActionCreator = (status) => {
     return {type: setUserStatusActionCreatorConst, status}
 }
 
+//ассинронный запрос async-await
 export const getUserThunkActionCreator = (userId) => {
-    return (dispatch) => {
-        ProfileAPI.getUser(userId)
-        .then(response => {
-            dispatch(setProfileActionCreator(response))
-        })
+    return async (dispatch) => {
+        let getUser = await ProfileAPI.getUser(userId)
+        dispatch(setProfileActionCreator(getUser))
     }
 }
+//ассинхронный запрос .then
 export const getUserStatusThunkActionCreator = (userId) => {
     return (dispatch) => {
         ProfileAPI.getUserStatus(userId)
@@ -38,6 +38,7 @@ export const getUserStatusThunkActionCreator = (userId) => {
     }
 }
 
+//ассинхронный запрос .then
 export const setUserStatusThunkActionCreator = (status) => {
     return (dispatch) => {
         ProfileAPI.setUserStatus(status)
