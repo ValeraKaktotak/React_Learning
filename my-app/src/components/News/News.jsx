@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import style from './News.module.css';
 
 const News = () => {
@@ -10,6 +10,11 @@ const News = () => {
             four: 4
         }
     }
+
+    useEffect(() => {
+        // Обновляем заголовок документа с помощью API браузера
+        document.title = `Вы нажали ${count} раз`;
+    });
 
     const objB = {...objA};
     objA.three.four = 44;

@@ -13,35 +13,30 @@ export const confirmLoginActionCreator = (loginData) => {
 }
 
 export const loginUserThunkActionCreator = (email, password, rememberMe) => {
-    return (dispatch) => {
-        LoginApi.login(email, password, rememberMe)
-        .then(response => {
-            if(response.resultCode === 0){
-                dispatch(AuthThunkActionCreator())
-            }
-            else{
-                let message = response.messages.length > 0? response.messages[0]:"Some error";
-                let formErrorAction = stopSubmit("login", {_error: message});
-                dispatch(formErrorAction);
-            }
-        })
+    return async (dispatch) => {
+        let loginResponse = await LoginApi.login(email, password, rememberMe)
+        if (loginResponse.resultCode === 0) {
+            dispatch(AuthThunkActionCreator())
+        } else {
+            let message = loginResponse.messages.length > 0 ? loginResponse.messages[0] : "Some error";
+            let formErrorAction = stopSubmit("login", {_error: message});
+            dispatch(formErrorAction);
+        }
     }
 }
 
 export const logOutUserThunkActionCreator = () => {
-    return (dispatch) => {
-        LoginApi.logOut()
-            .then(response => {
-                if(response.resultCode === 0){
-                    dispatch(logOutHeaderAuthThunkActionCreator())
-                }
-            })
+    return async (dispatch) => {
+        let logOutResponse = await LoginApi.logOut()
+        if (logOutResponse.resultCode === 0) {
+            dispatch(logOutHeaderAuthThunkActionCreator())
+        }
     }
 }
 
 //передаем часть данных связанных с данным редьюсером для первого рендера(создание state)
 const init = {
-    loginData:[]
+    loginData: []
 }
 const loginReducer = (state = init, action) => {
     switch (action.type) {

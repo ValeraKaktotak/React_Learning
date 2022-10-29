@@ -13,16 +13,13 @@ export const initializationActionCreator = () => {
 export const initializationAppThunkActionCreator = () => {
     return (dispatch) => {
 
-        // с помощью return получили промис от axios запроса
         let authPromise = dispatch(AuthThunkActionCreator())
 
-        // после получения промиса(после ответа сервера) запускаем наш экшен
         authPromise.then(() => {
             dispatch(initializationActionCreator())
         })
-
         // Если промисов много, помещаем их в массив и используем .then к массиву
-        // Promise.all([promise1, promise2])
+        // Promise.all([authPromise, promise1, promise2])
         //     .then(()=>{
         //
         //     })
