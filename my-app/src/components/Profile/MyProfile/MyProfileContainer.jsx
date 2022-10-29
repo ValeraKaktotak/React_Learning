@@ -12,6 +12,7 @@ import {compose} from "redux";
 import {Navigate} from "react-router-dom";
 
 class MyProfileContainer extends React.Component{
+
     componentDidMount() {
         let userId = this.props.router.params.userId;
 
@@ -40,7 +41,6 @@ class MyProfileContainer extends React.Component{
     }
 
     render() {
-        console.log('profilecontainer render')
         return (
             <MyProfile profile={this.props.profile} userStatus={this.props.userStatus} setUserStatus={this.props.setUserStatus} />
         )
