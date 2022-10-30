@@ -19,6 +19,10 @@ class App extends React.Component{
         this.props.initialization()
     }
 
+    myFunc(){
+        console.log('111')
+    }
+
     render(){
         if(!this.props.initialize){
             return <Preloader/>
@@ -38,7 +42,7 @@ class App extends React.Component{
                         <Route path="/login" element={<Login/>}/>
                         <Route path="/dialogs" element={<Dialogs/>}/>
                         <Route path="/users" element={<UsersContainer/>}/>
-                        <Route path="/news" element={<News/>}/>
+                        <Route path="/news" element={<News />}/>
                         <Route path="/music" element={<Music/>}/>
                         <Route path="/settings" element={<Settings/>}/>
                     </Routes>

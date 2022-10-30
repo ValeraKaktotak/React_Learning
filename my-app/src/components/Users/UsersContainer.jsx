@@ -62,17 +62,13 @@ class UsersContainer extends React.Component{
         )
     }
 
-    changePage = (page) => {
-        this.props.changePage(page, this.props.usersCountOnPage)
-    }
-
     render() {
         return(
             <>
                 { this.props.isLoader?<Preloader/>: null}
                 <Users usersCount={this.props.usersCount}
                        usersCurrentPage={this.props.usersCurrentPage}
-                       changePage={this.changePage}
+                       changePage={this.props.changePage}
                        buildUsers={this.buildUsers}
                        usersCountOnPage={this.props.usersCountOnPage}
                 />
