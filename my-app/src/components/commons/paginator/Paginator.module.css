@@ -4,3 +4,6 @@
 .items span{
     cursor: pointer;
 }
+.items{
+    margin: 20px;
+}

@@ -6,7 +6,7 @@ const Users = (props) => {
 
     return(
         <div className={style.users}>
-            <Paginator {...props}/>
+            <Paginator {...props} pagesInBlock={10}/>
             {props.buildUsers()}
         </div>
     )
