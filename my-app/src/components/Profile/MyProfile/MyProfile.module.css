@@ -6,6 +6,7 @@
     grid-template-areas:
     "user-image user-description";
     padding: 20px 0;
+    text-align: left
 }
 
 .user_block img {
