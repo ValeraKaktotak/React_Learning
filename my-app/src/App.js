@@ -1,5 +1,5 @@
 import './App.css';
-import React, {Suspense} from "react";
+import React from "react";
 import {Route, Routes} from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Profile from "./components/Profile/Profile";

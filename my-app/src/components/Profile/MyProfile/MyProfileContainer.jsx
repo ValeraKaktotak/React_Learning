@@ -3,7 +3,7 @@ import MyProfile from "./MyProfile";
 import {connect} from "react-redux";
 import {
     getUserStatusThunkActionCreator,
-    getUserThunkActionCreator,
+    getUserThunkActionCreator, setUserPhotoThunk,
     setUserStatusThunkActionCreator
 } from "../../../redux/profile-reducer";
 import withRouter from "../../../hoc/withRouter";
@@ -42,7 +42,11 @@ class MyProfileContainer extends React.Component{
 
     render() {
         return (
-            <MyProfile profile={this.props.profile} userStatus={this.props.userStatus} setUserStatus={this.props.setUserStatus} />
+            <MyProfile setPhoto={this.props.setPhoto}
+                       isOwner = {!this.props.router.params.userId}
+                       profile={this.props.profile}
+                       userStatus={this.props.userStatus}
+                       setUserStatus={this.props.setUserStatus} />
         )
     }
 }
@@ -72,6 +76,7 @@ export default compose(
     withAuthRedirect,
     connect(mapStateToProps,
         {
+            setPhoto:setUserPhotoThunk,
             getUser: getUserThunkActionCreator,
             getUserStatus: getUserStatusThunkActionCreator,
             setUserStatus: setUserStatusThunkActionCreator

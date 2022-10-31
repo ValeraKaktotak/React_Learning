@@ -12,6 +12,10 @@ class MyProfile extends React.PureComponent {
     //     return nextProps !== this.props || nextState !== this.state
     // }
 
+    avatarHandler (e) {
+        this.props.setPhoto(e.target.files[0])
+    }
+
     render() {
         if (!this.props.profile) {
             return (
@@ -27,6 +31,7 @@ class MyProfile extends React.PureComponent {
                         <div className={style.user_description}>
                             <MyStatus value={this.props.userStatus} setUserStatus={this.props.setUserStatus}/>
                             <h3>{this.props.profile.fullName}</h3>
+                            {this.props.isOwner && <input type={"file"} onChange={this.avatarHandler.bind(this)}/> }
                             <h4>{this.props.profile.aboutMe}</h4>
                             <h4>Date of birth: 14.10.1988</h4>
                             <h4>City: Kharkiv</h4>
