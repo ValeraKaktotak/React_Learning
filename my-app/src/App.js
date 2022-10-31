@@ -7,12 +7,16 @@ import Dialogs from "./components/Dialogs/Dialogs";
 import Music from "./components/Music/Music";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
-import UsersContainer from "./components/Users/UsersContainer";
 import Login from "./components/Login/Login";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {connect} from "react-redux";
 import {initializationAppThunkActionCreator} from "./redux/app-reducer";
 import Preloader from "./components/Preloader/Preloader";
+
+//React Lazy
+//import UsersContainer from "./components/Users/UsersContainer";
+import withSuspense from "./hoc/withSuspense";
+const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
 
 class App extends React.Component{
     componentDidMount() {
@@ -37,8 +41,12 @@ class App extends React.Component{
 
                         <Route path="/login" element={<Login/>}/>
                         <Route path="/dialogs" element={<Dialogs/>}/>
-                        <Route path="/users" element={<UsersContainer/>}/>
-                        <Route path="/news" element={<News/>}/>
+
+                        <Route path="/users" element={withSuspense(UsersContainer)}/>
+                        {/*<Route path="/users" element={<Suspense fallback={<div>Загрузка...</div>}><UsersContainer/></Suspense>}/>*/}
+                        {/*<Route path="/users" element={<UsersContainer/>}/>*/}
+
+                        <Route path="/news" element={<News />}/>
                         <Route path="/music" element={<Music/>}/>
                         <Route path="/settings" element={<Settings/>}/>
                     </Routes>

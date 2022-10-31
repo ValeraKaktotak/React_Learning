@@ -61,6 +61,18 @@ export const ProfileAPI = {
             })
                 .then(response=>response.data)
         )
+    },
+    setPhoto (file){
+        let formData = new FormData();
+        formData.append("image", file);
+        return (
+            axiosCreeds.put(`/profile/photo`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+                .then(response=>response.data)
+        )
     }
 }
 

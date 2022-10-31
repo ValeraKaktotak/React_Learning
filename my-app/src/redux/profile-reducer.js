@@ -4,6 +4,7 @@ import {ProfileAPI} from "../api/api";
 const addPostActionCreatorConst = 'ADD-POST';
 const setProfileActionCreatorConst = 'SET-PROFILE';
 const setUserStatusActionCreatorConst = 'SET-STATUS';
+const setPhotoActionCreatorConst = 'SET-PHOTO';
 
 // export const changePostTextActionCreator = (text) => {
 //     return {
@@ -20,12 +21,22 @@ export const setProfileActionCreator = (profile) => {
 export const setUserStatusActionCreator = (status) => {
     return {type: setUserStatusActionCreatorConst, status}
 }
+export const setPhotoActionCreator = (photo) => {
+    return {type: setPhotoActionCreatorConst, photo}
+}
 
 //ассинронный запрос async-await
 export const getUserThunkActionCreator = (userId) => {
     return async (dispatch) => {
         let getUser = await ProfileAPI.getUser(userId)
         dispatch(setProfileActionCreator(getUser))
+    }
+}
+//ассинронный запрос async-await
+export const setUserPhotoThunk = (file) => {
+    return async (dispatch) => {
+        let setPhoto = await ProfileAPI.setPhoto(file)
+        dispatch(setPhotoActionCreator(setPhoto))
     }
 }
 //ассинхронный запрос .then
@@ -110,6 +121,11 @@ const profileReducer = (state = init, action) => {
             return {
                 ...state,
                 userStatus: action.status
+            }
+        case setPhotoActionCreatorConst:
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.data.photos}
             }
     }
     return state
