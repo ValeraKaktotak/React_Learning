@@ -1,5 +1,6 @@
 import style from './FormControls.module.css'
 
+//фенкция для textarea
 export const Textarea = ({input, meta, ...props}) => {
     const hasError = meta.submitFailed && meta.error;
     return(
@@ -10,6 +11,7 @@ export const Textarea = ({input, meta, ...props}) => {
     )
 }
 
+//универсальная функция
 export const Element = (FormElement) => ({ input, meta, ...props }) => {
     const hasError = meta.touched && meta.error;
     return (

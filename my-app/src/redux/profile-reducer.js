@@ -1,4 +1,6 @@
 import {ProfileAPI} from "../api/api";
+import {AuthThunkActionCreator} from "./auth-reducer";
+import {stopSubmit} from "redux-form";
 
 //const changePostTextActionCreatorConst = 'CHANGE-POST-TEXT';
 const addPostActionCreatorConst = 'ADD-POST';
@@ -37,6 +39,20 @@ export const setUserPhotoThunk = (file) => {
     return async (dispatch) => {
         let setPhoto = await ProfileAPI.setPhoto(file)
         dispatch(setPhotoActionCreator(setPhoto))
+    }
+}
+//ассинронный запрос async-await
+export const setProfileDataThunk = (profile) => {
+    return async (dispatch) => {
+        let setProfile = await ProfileAPI.setProfile(profile)
+        if (setProfile.resultCode === 0) {
+            dispatch(setProfileActionCreator(profile))
+        } else {
+            let message = setProfile.messages.length > 0 ? setProfile.messages[0] : "Some error";
+            let formErrorAction = stopSubmit("profile-data", {_error: message});
+            dispatch(formErrorAction);
+            return Promise.reject(setProfile.messages[0])
+        }
     }
 }
 //ассинхронный запрос .then
@@ -115,7 +131,7 @@ const profileReducer = (state = init, action) => {
         case setProfileActionCreatorConst:
             return {
                 ...state,
-                profile: action.profile
+                profile: {...state.profile, ...action.profile}
             }
         case setUserStatusActionCreatorConst:
             return {
