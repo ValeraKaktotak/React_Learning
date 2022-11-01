@@ -9,8 +9,8 @@ import React from "react";
 
 const Login = (props) => {
     const onSubmitFunction = (formData) => {
-        let {email, password, rememberMe} = formData;
-        props.login(email, password, rememberMe = false)
+        let {email, password, rememberMe, captcha} = formData;
+        props.login(email, password, rememberMe = false, captcha)
     }
     if(props.isAuth){
         return (
@@ -22,7 +22,7 @@ const Login = (props) => {
             <header className={style.login}>
                 <h1>Login form</h1>
             </header>
-            <WithReduxForm onSubmit={onSubmitFunction} />
+            <WithReduxForm captcha={props.captcha} onSubmit={onSubmitFunction} />
         </>
     )
 }
@@ -44,6 +44,9 @@ const LoginForm = (props) => {
                 <label htmlFor="rememberMe">Remember me</label>
                 <Field name="rememberMe" component={Input} type="checkbox" />
             </div>
+            {props.captcha && <img src={props.captcha} />}
+            {props.captcha && <Field name="captcha" component={Input} type="text" validate={[required]} />}
+
             {props.error && <div className={style.error}>{props.error}</div>}
             <button>Login</button>
         </form>
@@ -57,7 +60,8 @@ let WithReduxForm = reduxForm({
 
 let mapStateToProps = (state) => {
     return{
-        isAuth: state.loginAuth.isLogged
+        isAuth: state.loginAuth.isLogged,
+        captcha: state.loginPage.captcha
     }
 }
 
