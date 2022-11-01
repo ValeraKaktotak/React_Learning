@@ -86,12 +86,13 @@ export const ProfileAPI = {
 }
 
 export const LoginApi = {
-    login (email, password, rememberMe = false){
+    login (email, password, rememberMe = false, captcha){
         return(
             axiosCreeds.post(`/auth/login`, {
                 email,
                 password,
-                rememberMe
+                rememberMe,
+                captcha
             })
                 .then(response=>response.data)
         )
@@ -99,6 +100,12 @@ export const LoginApi = {
     logOut (){
         return(
             axiosCreeds.delete(`/auth/login`)
+                .then(response=>response.data)
+        )
+    },
+    captcha (){
+        return(
+            axiosCreeds.get(`/security/get-captcha-url`)
                 .then(response=>response.data)
         )
     }

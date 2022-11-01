@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, legacy_createStore as createStore} from "redux";
+import {applyMiddleware, combineReducers, compose, legacy_createStore as createStore} from "redux";
 import sidebarReducer from "./sidebar-reducer";
 import profileReducer from "./profile-reducer";
 import messagesReducer from "./messages-reducer";
@@ -20,7 +20,12 @@ const reducers = combineReducers({
     app:appReducer
 })
 
-const store = createStore(reducers, applyMiddleware(thunkMiddleWear));
+//подключаем redux dev tools
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleWear)));
+
+//подключение редакса без redux dev tools
+//const store = createStore(reducers, applyMiddleware(thunkMiddleWear));
 
 window.store = store;
 

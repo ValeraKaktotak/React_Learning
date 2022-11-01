@@ -34,7 +34,7 @@ const init = {
     id: null,
     email: null,
     login: null,
-    isLogged: false
+    isLogged: false,
 }
 const authReducer = (state = init, action) => {
     switch (action.type) {
