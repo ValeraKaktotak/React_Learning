@@ -62,6 +62,15 @@ export const ProfileAPI = {
                 .then(response=>response.data)
         )
     },
+    setProfile (profile){
+        if(!profile.lookingForJob){
+            profile.lookingForJob = false;
+        }
+        return (
+            axiosCreeds.put(`/profile`, profile)
+                .then(response=>response.data)
+        )
+    },
     setPhoto (file){
         let formData = new FormData();
         formData.append("image", file);

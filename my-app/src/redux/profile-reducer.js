@@ -39,6 +39,13 @@ export const setUserPhotoThunk = (file) => {
         dispatch(setPhotoActionCreator(setPhoto))
     }
 }
+//ассинронный запрос async-await
+export const setProfileDataThunk = (profile) => {
+    return async (dispatch) => {
+        let setProfile = await ProfileAPI.setProfile(profile)
+        dispatch(setProfileActionCreator(profile))
+    }
+}
 //ассинхронный запрос .then
 export const getUserStatusThunkActionCreator = (userId) => {
     return (dispatch) => {
@@ -115,7 +122,7 @@ const profileReducer = (state = init, action) => {
         case setProfileActionCreatorConst:
             return {
                 ...state,
-                profile: action.profile
+                profile: {...state.profile, ...action.profile}
             }
         case setUserStatusActionCreatorConst:
             return {
