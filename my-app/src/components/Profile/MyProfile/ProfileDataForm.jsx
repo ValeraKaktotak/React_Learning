@@ -39,9 +39,10 @@ const ProfileDataForm = (props) => {
                     <h3>Контакты</h3>
                     <div>
                         {Object.entries(props.profile.contacts).map(([key, value]) => {
-                            return <div key={key}><b>{key}</b>:<span> {value}</span></div>
+                            return <div><b>{key} :</b> <Field placeholder={key} name={"contacts."+key} component={Input} type="text" /></div>
                         })}
                     </div>
+                    {props.error && <div className={style.error}>{props.error}</div>}
                     <div>
                         <button>Save</button>
                     </div>

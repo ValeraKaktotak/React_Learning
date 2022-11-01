@@ -19,3 +19,12 @@
     grid-area: user-description;
     padding: 0 20px;
 }
+
+.error{
+    border: 2px solid red;
+    color: red;
+    width: 100%;
+    max-width: 180px;
+    text-align: center;
+    margin: 20px 0;
+}

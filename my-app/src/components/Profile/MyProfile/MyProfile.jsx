@@ -9,7 +9,9 @@ const MyProfile = (props) => {
     let[editMode, setEditMode] = useState(false)
 
     const onSubmitFunction = (formData) => {
-        props.setProfileData(formData)
+        props.setProfileData(formData).then(()=>{
+            setEditMode(false)
+        })
     }
 
     const avatarHandler = (e) => {
