@@ -26,7 +26,8 @@ const MyProfile = (props) => {
     } else {
         return (
             <div>
-                {!editMode? <ProfileData editModeToggle={editModeToggle} avatarHandler={avatarHandler} {...props} />: <ProfileDataForm {...props} onSubmit={onSubmitFunction} />}
+                {!editMode? <ProfileData editModeToggle={editModeToggle} avatarHandler={avatarHandler} {...props} />:
+                    <ProfileDataForm initialValues={props.profile} {...props} onSubmit={onSubmitFunction} />}
             </div>
         )
     }
