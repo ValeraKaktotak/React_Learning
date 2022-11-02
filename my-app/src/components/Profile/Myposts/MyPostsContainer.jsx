@@ -25,11 +25,14 @@ import {compose} from "redux";
 // }
 
 class MyPostContainer extends React.Component {
+
+    //запрашиваем, нужно ли данному компоненту ререндерится. Если return true, то компонент будет реренднрится, если false, то нет.
     shouldComponentUpdate(nextProps, nextState, nextContext) {
-        return nextProps === this.props || nextState === this.state
+        return nextProps !== this.props || nextState !== this.state
     }
 
     render() {
+        console.log('MyPostContainer RERENDER')
         return (
             <MyPosts {...this.props} />
         )
