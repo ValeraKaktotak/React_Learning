@@ -1,6 +1,6 @@
 import './App.css';
 import React from "react";
-import {Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Profile from "./components/Profile/Profile";
 import Dialogs from "./components/Dialogs/Dialogs";
@@ -19,8 +19,16 @@ import withSuspense from "./hoc/withSuspense";
 const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
 
 class App extends React.Component{
+    //отлавливаем глобальные ошибку
+    catchAllUnhandledErrors = (reason, promise) => {
+        console.log(reason)
+    }
     componentDidMount() {
         this.props.initialization()
+        window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors)
+    }
+    componentWillUnmount() {
+        window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors)
     }
 
     render(){
@@ -33,6 +41,7 @@ class App extends React.Component{
                 <Sidebar/>
                 <div className="App_wrapper_content">
                     <Routes>
+                        <Route path="/" element={<Navigate to="/profile" />} />
                         <Route path="/profile" element={<Profile/>}/>
                         <Route path="/profile/:userId" element={<Profile/>}/>
                         {/*<Route path="profile" element={<Profile />}>*/}
